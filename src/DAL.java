@@ -1,2 +1,5 @@
-package PACKAGE_NAME;public class DAL {
+public class DAL {
+    //data access layer
+    //access to db
+    //create, read, update, delete
 }

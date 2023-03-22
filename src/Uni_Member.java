@@ -1,10 +1,11 @@
-public interface SJSU_Member {
-    public void setFirstName(String name);
-    public String getLastName();
+public interface Uni_Member {
+    public abstract void setFirstName(String name);
+    public abstract String getLastName();
 
-    public void setLastName(String name);
-    public String getFirstName();
+    public abstract void setLastName(String name);
+    public abstract String getFirstName();
 
-    public void setSch
+    public abstract void setSchool(String school);
+    public abstract String getSchool();
 
 }
