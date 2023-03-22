@@ -1,3 +1,5 @@
+package Application;
+
 public class Course {
     private String courseTag;
     private String courseName;

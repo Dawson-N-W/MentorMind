@@ -1,3 +1,5 @@
+package Application;
+
 import java.util.List;
 
 public class Student implements Uni_Member{

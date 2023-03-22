@@ -1,3 +1,5 @@
+package Application;
+
 public interface Uni_Member {
     public abstract void setFirstName(String name);
     public abstract String getLastName();

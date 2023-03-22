@@ -1,3 +1,5 @@
+package Application;
+
 public class Professor implements Uni_Member{
     @Override
     public void setFirstName(String name) {
