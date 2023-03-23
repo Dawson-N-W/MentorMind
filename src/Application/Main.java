@@ -2,6 +2,7 @@ package Application;
 
 public class Main {
     public static void main(String[] args) {
+        //this is a test for tyler
         DAL dal = new DAL();
         dal.createNewDatabase("test.db");
         System.out.println("Hello world!");
