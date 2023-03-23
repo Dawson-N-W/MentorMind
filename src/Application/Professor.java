@@ -2,6 +2,9 @@ package Application;
 
 public class Professor implements Uni_Member{
     //instance variables
+
+    //im uploading this as a test
+
     private String firstName;
     private String lastName;
 
