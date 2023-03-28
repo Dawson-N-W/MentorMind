@@ -10,7 +10,6 @@ public class Course {
         this.courseName = courseName;
         this.grade = grade;
     }
-    //this is Ej's first git test from eclipse
 
     public String getCourseTag() {
         return courseTag;
