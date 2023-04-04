@@ -45,8 +45,8 @@ public class SignUpController {
 		else if(dPassword.getText().contentEquals("p") == false) {
 			promptLabel.setText("Default Password is incorrect");
 		}
-		else if(firstPassword.getText().contentEquals(confirmPassword.getText()) == false) {
-			promptLabel.setText("Passwords do not match!");
+		else if(firstPassword.getText().trim().isEmpty() || confirmPassword.getText().trim().isEmpty() ||firstPassword.getText().contentEquals(confirmPassword.getText()) == false) {
+			promptLabel.setText("Passwords do not match or not filled!");
 		}
 		else {
 			checker = true;

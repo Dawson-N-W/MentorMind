@@ -13,7 +13,7 @@
    <children>
       <ImageView fitHeight="371.0" fitWidth="639.0" layoutX="-11.0" layoutY="42.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../../Downloads/undraw_Sign_in_re_o58h%20(1).png" />
+            <Image url="@undraw_Sign_in_re_o58h.png" />
          </image>
       </ImageView>
       <PasswordField fx:id="pass" layoutX="313.0" layoutY="145.0" prefHeight="27.0" prefWidth="202.0" promptText="Enter Password" />
