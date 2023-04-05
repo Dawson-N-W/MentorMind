@@ -9,6 +9,7 @@ public class Main {
         //DAL.DB db = new DB();
         //db.createTable("login");
         //db.insert("login", "myUser123", "password1234");
+        //login.createTable("login");
     }
 }
 //login in for the first time

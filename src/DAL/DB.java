@@ -43,6 +43,17 @@ public abstract class DB {
 
     }
 
+    public void deleteTable(String tableName){
+        String sql = "DROP TABLE " + tableName;
+        try{
+            Connection conn = DriverManager.getConnection(url);
+            Statement stmt = conn.createStatement();
+            stmt.execute(sql);
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
     protected static Connection connect() {
         Connection conn = null;
         try {
@@ -53,4 +64,5 @@ public abstract class DB {
         return conn;
     }
     public abstract void insert(String username, String password);
+    public abstract void delete(int id);
 }
