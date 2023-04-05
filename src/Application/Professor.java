@@ -7,12 +7,11 @@ public class Professor implements Uni_Member{
     private String lastName;
 
     private String school;
-    DAL dal;
+
     //constructor
     public Professor(String firstName, String lastName) {
         this.firstName = firstName;
         this.lastName = lastName;
-        dal = new DAL();
     }
     //default constructor
     public Professor(){};

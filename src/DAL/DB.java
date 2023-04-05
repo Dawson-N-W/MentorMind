@@ -1,17 +1,16 @@
-package Application;
+package DAL;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.DatabaseMetaData;
-public class DAL {
+public class DB {
     //data access layer
     //access to db
     //create, read, update, delete
-    public DAL(){};
-    public void createNewDatabase(String fileName) {
+    public static void createNewDatabase(String fileName) {
 
-        String url = "jdbc:sqlite:src/Application/" + fileName;
+        String url = "jdbc:sqlite:src/DAL/" + fileName;
 
         try {
             Connection conn = DriverManager.getConnection(url);
