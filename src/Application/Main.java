@@ -5,6 +5,7 @@ public class Main {
     public static void main(String[] args) {
         DAL.Login_Database login_database = DAL.Login_Database.getLogin_database();
         login_database.createTable("login");
+        login_database.insert("password");
 
 
 
