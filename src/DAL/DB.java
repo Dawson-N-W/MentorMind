@@ -10,10 +10,10 @@ public abstract class DB {
     //data access layer
     //access to db
     //create, read, update, delete
-
+    /*
     public static void createNewDatabase(String fileName) { //use once to create databases
 
-        String url = "jdbc:sqlite:src/DAL/" + fileName;
+        String url = "jdbc:sqlite:" + fileName;
 
         try {
             Connection conn = DriverManager.getConnection(url);
@@ -27,7 +27,7 @@ public abstract class DB {
             System.out.println(e.getMessage());
         }
     }
-
+    */
     public void createTable(String tableName){
 
         // SQL statement for creating a new table
