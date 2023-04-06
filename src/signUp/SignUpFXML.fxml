@@ -16,7 +16,7 @@
       <PasswordField fx:id="dPassword" layoutX="149.0" layoutY="190.0" prefHeight="27.0" prefWidth="253.0" promptText="Default Password" />
       <ImageView fitHeight="137.0" fitWidth="167.0" layoutX="199.0" layoutY="34.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@undraw_Male_avatar_g98d.png" />
+            <Image url="@../../Resources/Images/undraw_Male_avatar_g98d.png" />
          </image>
       </ImageView>
       <Label fx:id="promptLabel" layoutX="149.0" layoutY="173.0" prefHeight="17.0" prefWidth="253.0" />

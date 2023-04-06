@@ -12,7 +12,7 @@
    <children>
       <ImageView fitHeight="400.0" fitWidth="370.0" layoutX="223.0">
          <image>
-            <Image url="@undraw_Authentication_re_svpt.png" />
+            <Image url="@../../Resources/Images/undraw_Authentication_re_svpt.png" />
          </image>
       </ImageView>
       <PasswordField fx:id="oldP" layoutX="34.0" layoutY="111.0" promptText="Old Password" />

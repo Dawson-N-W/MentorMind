@@ -15,7 +15,7 @@
    <children>
       <ImageView fitHeight="618.0" fitWidth="800.0" layoutX="30.0" layoutY="40.0" opacity="0.2" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@undraw_online_resume_re_ru7s.png" />
+            <Image url="@../../Resources/Images/undraw_online_resume_re_ru7s.png" />
          </image>
       </ImageView>
       <TextField alignment="CENTER" layoutX="233.0" layoutY="54.0" prefHeight="28.0" prefWidth="334.0" promptText="Search" />
