@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+
 
 
 public class Login_Database extends DB {
@@ -19,13 +21,15 @@ public class Login_Database extends DB {
     }
 
     private Login_Database() {
-        conn = DB.conn;
+    	conn = DB.conn;
+
     }
 
     @Override
     public void insert(String password) {
         String sql = "INSERT INTO login(password) VALUES(?)";
         try{
+        	//if(conn == null) {System.out.println("wth?????");}
             pstmt = conn.prepareStatement(sql);
             pstmt.setString(1, password);
             pstmt.executeUpdate();
@@ -46,33 +50,64 @@ public class Login_Database extends DB {
         }
     }
     //returns -1 if login failed, otherwise returns id
-    public int login(String password){
-    String sql = "SELECT * FROM login WHERE password = ?";
-        try{
-            pstmt = conn.prepareStatement(sql);
-            pstmt.setString(1, password);
-            ResultSet rs = pstmt.executeQuery();
-            if (rs.next()) {
-                return rs.getInt("id");
-            } else {
-                return -1;
-            }
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-            return -1;
-        }
+    public boolean isLogin(String pass) throws Exception{
+    	
+    	PreparedStatement pr = null;
+    	ResultSet rs = null;
+    	
+    	String sql = "SELECT * FROM login where password = ?";
+    	
+    	try {
+    		pr = conn.prepareStatement(sql);
+    		pr.setString(1, pass);
+    		
+    		rs = pr.executeQuery();
+    		
+    		return rs.next();
+    	}
+    	catch(SQLException ex) {
+    		System.out.println("Something went wrong whilst attempting to authenticate password");
+    		return false;
+    	}
+    	
     }
 
-    public void updatePassword(int id, String newPassword){
-        String sql = "UPDATE login SET password = ? WHERE id = ?";
+    public void updatePassword(String newPassword, String oldP){
+        String sql = "UPDATE login SET password = '" + newPassword + "' WHERE password = '" + oldP + "'";
         try{
             pstmt = conn.prepareStatement(sql);
-            pstmt.setString(1, newPassword);
-            pstmt.setInt(2, id);
             pstmt.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
+    }
+    
+
+    
+    public boolean isEmpty() {
+    	String sql = "SELECT COUNT(password) AS total FROM login";
+    	int count = 0;
+    	
+      	try {
+			Statement pr = conn.createStatement();
+			ResultSet rs = pr.executeQuery(sql);
+			
+			while(rs.next()) {
+				count = rs.getInt("total");
+			}
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	
+    	
+    	//System.out.println(count);
+    	if(count == 0) {
+    		return true;
+    	}
+    	return false;
     }
 }
 

@@ -2,8 +2,10 @@ package DAL;
 
 import java.sql.*;
 
+
 public abstract class DB {
-    private static final String url = "jdbc:sqlite:src/DAL/Database.db";
+    private static final String url = "jdbc:sqlite:src/DAL/database.db";
+
     protected static final Connection conn = connect();
     //data access layer
     //access to db
@@ -58,12 +60,15 @@ public abstract class DB {
     protected static Connection connect() {
         Connection conn = null;
         try {
+        	Class.forName("org.sqlite.JDBC");
             conn = DriverManager.getConnection(url);
-        } catch (SQLException e) {
+        } catch (SQLException | ClassNotFoundException e) {
+        	System.out.print("Huh??  ");
             System.out.println(e.getMessage());
         }
         return conn;
     }
+
     public abstract void insert(String password);
     public abstract void delete(int id);
 }

@@ -3,6 +3,7 @@ package signUp;
 import java.io.IOException;
 
 import javafx.event.ActionEvent;
+import DAL.*;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -10,13 +11,11 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import login.InitialLoginController;
 
 public class SignUpController {
-	@FXML private TextField username;
 	@FXML private PasswordField dPassword;
 	@FXML private PasswordField firstPassword;
 	@FXML private PasswordField confirmPassword;
@@ -25,7 +24,8 @@ public class SignUpController {
 	@FXML private Button loginButton;
 	@FXML private Button createAcc;
 	
-	private boolean checker = false;
+	DAL.Login_Database ld = DAL.Login_Database.getLogin_database();
+	
 	
 	@FXML
 	public void backToLogin(ActionEvent event) {
@@ -39,26 +39,27 @@ public class SignUpController {
 	@FXML
 	public void submit(ActionEvent event) {
 		
-		if(username.getText().trim().isEmpty()) {
-			promptLabel.setText("Please Enter in a Valid Username");
-		}
-		else if(dPassword.getText().contentEquals("p") == false) {
+		if(dPassword.getText().contentEquals("p") == false) {
 			promptLabel.setText("Default Password is incorrect");
 		}
 		else if(firstPassword.getText().trim().isEmpty() || confirmPassword.getText().trim().isEmpty() ||firstPassword.getText().contentEquals(confirmPassword.getText()) == false) {
 			promptLabel.setText("Passwords do not match or not filled!");
 		}
+		else if(firstPassword.getText().contentEquals("p") && confirmPassword.getText().contentEquals("p")) {
+			promptLabel.setText("Cannot set password to default!");
+		}
 		else {
-			checker = true;
+
+			ld.insert(confirmPassword.getText());
 			Stage stage = (Stage)createAcc.getScene().getWindow();
 			stage.close();
 			try {
+
 				Stage signUp;
 				FXMLLoader loader = new FXMLLoader(getClass().getResource("/login/InitialLoginFXML.fxml"));
 				AnchorPane root = loader.load();
 				
 				InitialLoginController initC = loader.getController();
-				initC.signedUp();
 				
 				
 				signUp = (Stage)((Node)event.getSource()).getScene().getWindow();
@@ -69,11 +70,6 @@ public class SignUpController {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-//			Stage stage = (Stage)createAcc.getScene().getWindow();
-//			stage.close();
-//			signupStage();
-//			
-			
 		}
 		
 
@@ -87,9 +83,6 @@ public class SignUpController {
 			AnchorPane root = (AnchorPane)FXMLLoader.load(getClass().getResource("/login/InitialLoginFXML.fxml"));
 			
 			InitialLoginController initC = (InitialLoginController)loader.getController();
-			if(checker) {
-				initC.signedUp();
-			}
 			
 			Scene scene = new Scene(root);
 			signUpStage.setScene(scene);

@@ -1,4 +1,5 @@
 package login;
+import DAL.*;
 //package application;
 
 import javafx.application.Application;
@@ -13,6 +14,7 @@ public class InitialLogin extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		try {
+	        //DAL.Login_Database login_database = DAL.Login_Database.getLogin_database();
 			AnchorPane root = (AnchorPane)FXMLLoader.load(getClass().getResource("InitialLoginFXML.fxml"));
 			Scene scene = new Scene(root,600,400);
 			//scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
