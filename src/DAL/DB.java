@@ -4,13 +4,13 @@ import java.sql.*;
 
 
 public abstract class DB {
-    private static final String url = "jdbc:sqlite:src/DAL/database.db";
+    private static final String url = "jdbc:sqlite:database.db";
 
     protected static final Connection conn = connect();
     //data access layer
     //access to db
     //create, read, update, delete
-    /*
+
     public static void createNewDatabase(String fileName) { //use once to create databases
 
         String url = "jdbc:sqlite:src/DAL/" + fileName;
@@ -27,7 +27,7 @@ public abstract class DB {
             System.out.println(e.getMessage());
         }
     }
-    */
+
     public void createTable(String tableName){
 
         // SQL statement for creating a new table
