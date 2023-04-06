@@ -4,6 +4,7 @@ import java.sql.*;
 
 public abstract class DB {
     private static final String url = "jdbc:sqlite:src/DAL/Database.db";
+    protected static final Connection conn = connect();
     //data access layer
     //access to db
     //create, read, update, delete
@@ -31,7 +32,8 @@ public abstract class DB {
         String sql = "CREATE TABLE IF NOT EXISTS " + tableName + " (\n"
                 + "	id integer PRIMARY KEY,\n"
                 + "	username text NOT NULL,\n"
-                + "	password text NOT NULL\n"
+                + "	password text NOT NULL,\n"
+                + " UNIQUE(username, password)\n"
                 + ");";
         try{
             Connection conn = DriverManager.getConnection(url);

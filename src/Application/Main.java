@@ -3,13 +3,13 @@ import DAL.*;
 
 public class Main {
     public static void main(String[] args) {
-        //this is a test for tyler
-        //calling it database.db  fight me
-        //DB.createNewDatabase("database.db");
-        //DAL.DB db = new DB();
-        //db.createTable("login");
-        //db.insert("login", "myUser123", "password1234");
-        //login.createTable("login");
+        DAL.Login_Database login_database = DAL.Login_Database.getLogin_database();
+        //login_database.insert("username1", "password1");
+        int id = login_database.login("username1", "password1");
+        login_database.delete(id);
+
+
+
     }
 }
 //login in for the first time

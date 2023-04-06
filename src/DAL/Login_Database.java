@@ -2,6 +2,7 @@ package DAL;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 
@@ -18,8 +19,7 @@ public class Login_Database extends DB {
     }
 
     private Login_Database() {
-        super();
-        conn = DB.connect();
+        conn = DB.conn;
     }
 
     @Override
@@ -53,11 +53,27 @@ public class Login_Database extends DB {
             pstmt = conn.prepareStatement(sql);
             pstmt.setString(1, username);
             pstmt.setString(2, password);
-            pstmt.executeQuery();
-            return pstmt.getResultSet().getInt("id");
+            ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+                return rs.getInt("id");
+            } else {
+                return -1;
+            }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
             return -1;
+        }
+    }
+
+    public void updatePassword(int id, String newPassword){
+        String sql = "UPDATE login SET password = ? WHERE id = ?";
+        try{
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, newPassword);
+            pstmt.setInt(2, id);
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
         }
     }
 }
