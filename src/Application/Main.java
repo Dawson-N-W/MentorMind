@@ -4,9 +4,7 @@ import DAL.*;
 public class Main {
     public static void main(String[] args) {
         DAL.Login_Database login_database = DAL.Login_Database.getLogin_database();
-        //login_database.insert("username1", "password1");
-        int id = login_database.login("username1", "password1");
-        login_database.delete(id);
+        login_database.createTable("login");
 
 
 

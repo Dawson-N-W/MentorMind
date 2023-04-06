@@ -23,12 +23,11 @@ public class Login_Database extends DB {
     }
 
     @Override
-    public void insert(String username, String password) {
-        String sql = "INSERT INTO login(username, password) VALUES(?,?)";
+    public void insert(String password) {
+        String sql = "INSERT INTO login(password) VALUES(?)";
         try{
             pstmt = conn.prepareStatement(sql);
-            pstmt.setString(1, username);
-            pstmt.setString(2, password);
+            pstmt.setString(1, password);
             pstmt.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -47,12 +46,11 @@ public class Login_Database extends DB {
         }
     }
     //returns -1 if login failed, otherwise returns id
-    public int login(String username, String password){
-    String sql = "SELECT * FROM login WHERE username = ? AND password = ?";
+    public int login(String password){
+    String sql = "SELECT * FROM login WHERE password = ?";
         try{
             pstmt = conn.prepareStatement(sql);
-            pstmt.setString(1, username);
-            pstmt.setString(2, password);
+            pstmt.setString(1, password);
             ResultSet rs = pstmt.executeQuery();
             if (rs.next()) {
                 return rs.getInt("id");
