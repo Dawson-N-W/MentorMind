@@ -33,8 +33,16 @@ public abstract class DB {
         // SQL statement for creating a new table
         String sql = "CREATE TABLE IF NOT EXISTS " + tableName + " (\n"
                 + "	id integer PRIMARY KEY,\n"
-                + "	password text NOT NULL,\n"
-                + " UNIQUE(password)\n"
+                + "	firstName text NOT NULL,\n"
+                + "	lastName text NOT NULL,\n"
+                + "	gender text NOT NULL,\n"
+                + "	school text NOT NULL,\n"
+                + "	date text NOT NULL,\n"
+                + "	program text NOT NULL,\n"
+                + "	semester text NOT NULL,\n"
+                + "	semYear text NOT NULL,\n"
+                + "	personalChars text NOT NULL,\n"
+                + "	academicChars text NOT NULL\n"
                 + ");";
         try{
             Connection conn = DriverManager.getConnection(url);
@@ -69,6 +77,6 @@ public abstract class DB {
         return conn;
     }
 
-    public abstract void insert(String password);
-    public abstract void delete(int id);
+    //public abstract void insert(String password);
+    //public abstract void delete(int id);
 }

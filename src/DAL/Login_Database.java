@@ -25,7 +25,7 @@ public class Login_Database extends DB {
 
     }
 
-    @Override
+
     public void insert(String password) {
         String sql = "INSERT INTO login(password) VALUES(?)";
         try{
@@ -38,7 +38,7 @@ public class Login_Database extends DB {
         }
     }
 
-    @Override
+
     public void delete(int id) {
         String sql = "DELETE FROM login WHERE id = ?";
         try{
