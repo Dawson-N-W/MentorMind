@@ -46,7 +46,7 @@ public class Professor_Database extends DB{
                 profId = rs.getInt(1);
             }
 
-            sql = "INSERT INTO Semester(semester, profID) VALUES(?,?)";
+            sql = "INSERT INTO Semesters(semester, profID) VALUES(?,?)";
             pstmt = conn.prepareStatement(sql);
             for (String semester : semesters) {
                 pstmt.setString(1, semester);
