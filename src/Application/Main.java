@@ -8,7 +8,7 @@ public class Main {
     public static void main(String[] args) {
 
         Professor_Database professor_database = Professor_Database.getProfessor_database();
-
+        /*
         List<String> semesters = new ArrayList<>(); semesters.add("Summer"); semesters.add("Fall");
         List<String> courses = new ArrayList<>(); courses.add("CS151 - OOP"); courses.add("CS171 - ML");
         List<String> programs = new ArrayList<>(); programs.add("Master of Science (MS)"); programs.add("Master of Business Administration (MBA)");
@@ -16,7 +16,7 @@ public class Main {
         List<String> academicChars = new ArrayList<>(); academicChars.add("Hard Studier"); academicChars.add("Worked Hard");
         professor_database.insert("John Doe", "Lecturer", "SJSU", "CS",
                 "john.doe@sjsu.edu", "408-867-5309", semesters, courses, programs, personalChars, academicChars);
-
+        */
         /*
         professor_database.deleteProf(2);
         professor_database.deleteEntry("Semesters", 2);
@@ -25,6 +25,8 @@ public class Main {
         professor_database.deleteEntry("Personal_Characteristics", 2);
         professor_database.deleteEntry("Academic_Characteristics", 2);
         */
+
+        DB.createTable("Student_PChar");
 
     }
 }

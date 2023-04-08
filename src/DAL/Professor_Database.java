@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 public class Professor_Database extends DB{
-    private Connection conn;
+    private final Connection conn;
     private PreparedStatement pstmt;
 
 

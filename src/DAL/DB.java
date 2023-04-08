@@ -33,9 +33,9 @@ public abstract class DB {
         // SQL statement for creating a new table
         String sql = "CREATE TABLE IF NOT EXISTS " + tableName + " (\n"
                 + "	id integer PRIMARY KEY,\n"
-                + "	academic_characteristics text NOT NULL,\n"
-                + "	profID integer NOT NULL,\n"
-                + " FOREIGN KEY (profID) REFERENCES Professor(id)\n"
+                + "	personal_characteristics text NOT NULL,\n"
+                + "	studentID integer NOT NULL,\n"
+                + " FOREIGN KEY (studentID) REFERENCES students(id)\n"
                 + ");";
         try{
             Connection conn = DriverManager.getConnection(url);
@@ -45,6 +45,17 @@ public abstract class DB {
             System.out.println(e.getMessage());
         }
 
+    }
+
+    public static void alterTable(String tableName, String columnName){
+    	String sql = "ALTER TABLE " + tableName + " DROP COLUMN " + columnName;
+    	try{
+            Connection conn = DriverManager.getConnection(url);
+            Statement stmt = conn.createStatement();
+            stmt.execute(sql);
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     public void deleteTable(String tableName){
