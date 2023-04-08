@@ -81,39 +81,22 @@ public class Student_Database extends DB{
             pstmt = conn.prepareStatement(sql);
             pstmt.setInt(1, id);
             pstmt.executeUpdate();
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
-    }
 
-    public void deleteStudentPChar(int studentId) {
-        String sql = "DELETE FROM Student_PChar WHERE studentID = ?";
-        try{
+            sql = "DELETE FROM Student_PChar WHERE studentID = ?";
             pstmt = conn.prepareStatement(sql);
-            pstmt.setInt(1, studentId);
+            pstmt.setInt(1, id);
             pstmt.executeUpdate();
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
-    }
 
-    public void deleteStudentAChar(int studentId) {
-        String sql = "DELETE FROM Student_AChar WHERE studentID = ?";
-        try{
+            sql = "DELETE FROM Student_AChar WHERE studentID = ?";
             pstmt = conn.prepareStatement(sql);
-            pstmt.setInt(1, studentId);
+            pstmt.setInt(1, id);
             pstmt.executeUpdate();
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
-    }
 
-    public void deleteStudentCourses(int studentId) {
-        String sql = "DELETE FROM Student_Courses WHERE studentID = ?";
-        try{
+            sql = "DELETE FROM Student_Courses WHERE studentID = ?";
             pstmt = conn.prepareStatement(sql);
-            pstmt.setInt(1, studentId);
+            pstmt.setInt(1, id);
             pstmt.executeUpdate();
+
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
