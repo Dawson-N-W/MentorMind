@@ -3,9 +3,7 @@ import DAL.*;
 
 public class Main {
     public static void main(String[] args) {
-        DAL.Login_Database login_database = DAL.Login_Database.getLogin_database();
-        DAL.Student_Database student_database = DAL.Student_Database.getLogin_database();
-        student_database.createTable("students");
+        DB.createTable("Academic_Characteristics");
 
 
 

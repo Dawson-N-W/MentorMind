@@ -28,21 +28,14 @@ public abstract class DB {
         }
     }
     */
-    public void createTable(String tableName){
+    public static void createTable(String tableName){
 
         // SQL statement for creating a new table
         String sql = "CREATE TABLE IF NOT EXISTS " + tableName + " (\n"
                 + "	id integer PRIMARY KEY,\n"
-                + "	firstName text NOT NULL,\n"
-                + "	lastName text NOT NULL,\n"
-                + "	gender text NOT NULL,\n"
-                + "	school text NOT NULL,\n"
-                + "	date text NOT NULL,\n"
-                + "	program text NOT NULL,\n"
-                + "	semester text NOT NULL,\n"
-                + "	semYear text NOT NULL,\n"
-                + "	personalChars text NOT NULL,\n"
-                + "	academicChars text NOT NULL\n"
+                + "	academic_characteristics text NOT NULL,\n"
+                + "	profID integer NOT NULL,\n"
+                + " FOREIGN KEY (profID) REFERENCES Professor(id)\n"
                 + ");";
         try{
             Connection conn = DriverManager.getConnection(url);
