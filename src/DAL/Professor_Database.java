@@ -94,8 +94,28 @@ public class Professor_Database extends DB{
         catch(SQLException e){
             System.out.println(e.getMessage());
         }
+    }
 
+    public void deleteProf(int id) {
+    	String sql = "DELETE FROM Professor WHERE id = ?";
+    	try{
+    		pstmt = conn.prepareStatement(sql);
+    		pstmt.setInt(1, id);
+    		pstmt.executeUpdate();
+    	} catch (SQLException e) {
+    		System.out.println(e.getMessage());
+    	}
+    }
 
+    public void deleteEntry(String table, int id) {
+    	String sql = "DELETE FROM " + table + " WHERE profID = ?";
+    	try{
+    		pstmt = conn.prepareStatement(sql);
+    		pstmt.setInt(1, id);
+    		pstmt.executeUpdate();
+    	} catch (SQLException e) {
+    		System.out.println(e.getMessage());
+    	}
     }
 
 }
