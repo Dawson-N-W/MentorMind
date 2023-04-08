@@ -26,7 +26,30 @@ public class Main {
         professor_database.deleteEntry("Academic_Characteristics", 2);
         */
 
-        DB.createTable("Student_PChar");
+        /*
+
+        Student_Database student_database = Student_Database.getStudent_database();
+
+        //STUDENT 1
+        List<String> academicChars = new ArrayList<>(); academicChars.add("Hard Studier"); academicChars.add("Worked Hard");
+        List<String> personalChars = new ArrayList<>(); personalChars.add("Honest"); personalChars.add("Kind");
+        List<String> courses = new ArrayList<>(); courses.add("CS151 - OOP"); courses.add("CS171 - ML");
+        student_database.insert("Peter", "Parker", "Male", "SJSU",
+                "04/07/23", "BS", "Spring", "2023", personalChars, academicChars, courses);
+
+        //STUDENT 2
+        academicChars = new ArrayList<>(); academicChars.add("Good Reader"); academicChars.add("Mathematician");
+        personalChars = new ArrayList<>(); personalChars.add("Patient"); personalChars.add("Funny");
+        courses = new ArrayList<>(); courses.add("CS149 - OS"); courses.add("CS108 - Video Game Studies");
+        student_database.insert("Harley", "Quinn", "Female", "SJSU",
+                "04/20/23", "MA", "Fall", "2022", personalChars, academicChars, courses);
+
+
+         */
+
+
+
+
 
     }
 }

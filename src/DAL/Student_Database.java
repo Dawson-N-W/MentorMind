@@ -14,7 +14,7 @@ public class Student_Database extends DB{
     //Singleton pattern
     private final static Student_Database student_database = new Student_Database();
 
-    public static Student_Database getLogin_database() {
+    public static Student_Database getStudent_database() {
         return student_database;
     }
 
@@ -24,7 +24,7 @@ public class Student_Database extends DB{
 
     public void insert(String firstName, String lastName, String gender,
                        String school, String date, String program, String semester,
-                       String semYear, List<String> personalCharsList, List<String> academicCharsList) {
+                       String semYear, List<String> personalCharsList, List<String> academicCharsList, List<String> courseList) {
         String sql = "INSERT INTO students(firstName, lastName, gender, school, date, program, semester, semYear) VALUES(?,?,?,?,?,?,?,?)";
         try{
             pstmt = conn.prepareStatement(sql);
@@ -60,6 +60,14 @@ public class Student_Database extends DB{
                 pstmt.executeUpdate();
             }
 
+            sql = "INSERT INTO Student_Courses(courses, studentID) VALUES(?,?)";
+            pstmt = conn.prepareStatement(sql);
+            for (String courses : courseList) {
+                pstmt.setString(1, courses);
+                pstmt.setInt(2, studentId);
+                pstmt.executeUpdate();
+            }
+
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
@@ -91,6 +99,17 @@ public class Student_Database extends DB{
 
     public void deleteStudentAChar(int studentId) {
         String sql = "DELETE FROM Student_AChar WHERE studentID = ?";
+        try{
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1, studentId);
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public void deleteStudentCourses(int studentId) {
+        String sql = "DELETE FROM Student_Courses WHERE studentID = ?";
         try{
             pstmt = conn.prepareStatement(sql);
             pstmt.setInt(1, studentId);

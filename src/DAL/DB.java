@@ -33,7 +33,7 @@ public abstract class DB {
         // SQL statement for creating a new table
         String sql = "CREATE TABLE IF NOT EXISTS " + tableName + " (\n"
                 + "	id integer PRIMARY KEY,\n"
-                + "	personal_characteristics text NOT NULL,\n"
+                + "	courses text NOT NULL,\n"
                 + "	studentID integer NOT NULL,\n"
                 + " FOREIGN KEY (studentID) REFERENCES students(id)\n"
                 + ");";
