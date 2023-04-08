@@ -83,7 +83,10 @@ public class Login_Database extends DB {
     }
     
 
-    
+    /*
+     * Checks if there exists data in the password column of the login table
+     * returns true if there is, else false.
+     */
     public boolean isEmpty() {
     	String sql = "SELECT COUNT(password) AS total FROM login";
     	int count = 0;
@@ -103,7 +106,6 @@ public class Login_Database extends DB {
 		}
     	
     	
-    	//System.out.println(count);
     	if(count == 0) {
     		return true;
     	}

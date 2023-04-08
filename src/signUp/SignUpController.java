@@ -3,7 +3,7 @@ package signUp;
 import java.io.IOException;
 
 import javafx.event.ActionEvent;
-import DAL.*;
+import DAL.Login_Database;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -13,7 +13,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import login.InitialLoginController;
 
 public class SignUpController {
 	@FXML private PasswordField dPassword;
@@ -24,9 +23,11 @@ public class SignUpController {
 	@FXML private Button loginButton;
 	@FXML private Button createAcc;
 	
-	DAL.Login_Database ld = DAL.Login_Database.getLogin_database();
+	Login_Database ld = Login_Database.getLogin_database();
 	
-	
+	/*
+	 * Redirects the user back to the login page without storing any new details
+	 */
 	@FXML
 	public void backToLogin(ActionEvent event) {
 		Stage stage = (Stage)loginButton.getScene().getWindow();
@@ -35,7 +36,11 @@ public class SignUpController {
 
 	}
 	
-	
+	/**
+	 * Verifies the default password and checks that both new
+	 * passwords are the same. If so, it redirects the user back to
+	 * the login page
+	 */
 	@FXML
 	public void submit(ActionEvent event) {
 		
@@ -58,10 +63,6 @@ public class SignUpController {
 				Stage signUp;
 				FXMLLoader loader = new FXMLLoader(getClass().getResource("/login/InitialLoginFXML.fxml"));
 				AnchorPane root = loader.load();
-				
-				InitialLoginController initC = loader.getController();
-				
-				
 				signUp = (Stage)((Node)event.getSource()).getScene().getWindow();
 				Scene scene = new Scene(root);
 				signUp.setScene(scene);
@@ -75,18 +76,19 @@ public class SignUpController {
 
 	}
 	
+	/*
+	 * Opens up the new stage for the login page
+	 * and redirects the user over there
+	 */
 	public void signupStage() {
 
 		try {
 			Stage signUpStage = new Stage();
-			FXMLLoader loader = new FXMLLoader();
 			AnchorPane root = (AnchorPane)FXMLLoader.load(getClass().getResource("/login/InitialLoginFXML.fxml"));
-			
-			InitialLoginController initC = (InitialLoginController)loader.getController();
 			
 			Scene scene = new Scene(root);
 			signUpStage.setScene(scene);
-			//signUpStage.setTitle("Sign Up");
+			signUpStage.setTitle("Login");
 			signUpStage.setResizable(false);
 			signUpStage.show();
 			} catch (IOException e) {

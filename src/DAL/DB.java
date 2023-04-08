@@ -3,31 +3,14 @@ package DAL;
 import java.sql.*;
 
 
-public abstract class DB {
+public class DB {
     private static final String url = "jdbc:sqlite:database.db";
 
     protected static final Connection conn = connect();
     //data access layer
     //access to db
     //create, read, update, delete
-    /*
-    public static void createNewDatabase(String fileName) { //use once to create databases
 
-        String url = "jdbc:sqlite:" + fileName;
-
-        try {
-            Connection conn = DriverManager.getConnection(url);
-            if (conn != null) {
-                DatabaseMetaData meta = conn.getMetaData();
-                System.out.println("The driver name is " + meta.getDriverName());
-                System.out.println("A new database has been created.");
-            }
-
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
-    }
-    */
     public static void createTable(String tableName){
 
         // SQL statement for creating a new table

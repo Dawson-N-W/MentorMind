@@ -26,7 +26,7 @@
       <TextField fx:id="fName" layoutX="95.0" layoutY="79.0" prefHeight="27.0" prefWidth="189.0" promptText="First Name" />
       <TextField fx:id="lName" layoutX="317.0" layoutY="79.0" prefHeight="27.0" prefWidth="189.0" promptText="Last Name" />
       <ComboBox fx:id="genderCombo" layoutX="524.0" layoutY="79.0" prefWidth="150.0" promptText="Gender" />
-      <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" text="Login" />
+      <Button fx:id="logoutButton" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#logout" text="Logout" />
       <Button layoutX="721.0" layoutY="14.0" mnemonicParsing="false" text="Compile" />
       <TextField fx:id="schoolName" layoutX="128.0" layoutY="161.0" prefHeight="27.0" prefWidth="189.0" promptText="School Name" />
       <DatePicker fx:id="schoolDate" layoutX="393.0" layoutY="161.0" promptText="Date" />
@@ -35,7 +35,7 @@
             <Font size="18.0" />
          </font>
       </Label>
-      <Accordion layoutX="95.0" layoutY="210.0" prefHeight="316.0" prefWidth="589.0">
+      <Accordion layoutX="99.0" layoutY="245.0" prefHeight="316.0" prefWidth="589.0">
         <panes>
             <TitledPane prefHeight="200.0" prefWidth="200.0" text="Programs">
                <content>
@@ -98,5 +98,7 @@
             </TitledPane>
         </panes>
       </Accordion>
+      <Button fx:id="resetP" layoutX="73.0" layoutY="14.0" mnemonicParsing="false" onAction="#resetPassword" text="Reset Password" />
+      <Label layoutX="99.0" layoutY="213.0" prefHeight="17.0" prefWidth="501.0" text="If more than one option applies, hold down the Ctrl/Command key to select multiple options" underline="true" />
    </children>
 </AnchorPane>

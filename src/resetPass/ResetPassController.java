@@ -2,7 +2,7 @@ package resetPass;
 
 import java.io.IOException;
 
-import DAL.*;
+import DAL.Login_Database;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -22,8 +22,11 @@ public class ResetPassController {
 	@FXML private Button logoutButton;
 	@FXML private Label testLabel;
 	
-	DAL.Login_Database ld = DAL.Login_Database.getLogin_database();
+	Login_Database ld = Login_Database.getLogin_database();
 	
+	/*
+	 * Redirects the user back to the login page without storing any new details
+	 */
 	@FXML
 	public void backToLogin(ActionEvent event) {
 		Stage stage = (Stage)logoutButton.getScene().getWindow();
@@ -31,6 +34,11 @@ public class ResetPassController {
 		loginStage();
 	}
 	
+	/**
+	 * Verifies the old password and checks that both new
+	 * passwords are the same. If so, it redirects the user back to
+	 * the login page
+	 */
 	@FXML
 	public void submit() {
 		try {
@@ -56,18 +64,18 @@ public class ResetPassController {
 		}
 	}
 	
+	/*
+	 * Opens up the new stage for the login page
+	 */
 	public void loginStage() {
 
 		try {
 			Stage signUpStage = new Stage();
-			FXMLLoader loader = new FXMLLoader();
 			AnchorPane root = (AnchorPane)FXMLLoader.load(getClass().getResource("/login/InitialLoginFXML.fxml"));
-			
-			//InitialLoginController initC = (InitialLoginController)loader.getController();
 			
 			Scene scene = new Scene(root);
 			signUpStage.setScene(scene);
-			//signUpStage.setTitle("Sign Up");
+			signUpStage.setTitle("Login");
 			signUpStage.setResizable(false);
 			signUpStage.show();
 			} catch (IOException e) {

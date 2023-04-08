@@ -13,8 +13,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import mainMenu.MainMenuController;
-import signUp.SignUpController;
 
 public class InitialLoginController{
 
@@ -23,20 +21,31 @@ public class InitialLoginController{
 	@FXML private Button resetP;
 	@FXML private Label testLabel;
 	
-	DAL.Login_Database ld = DAL.Login_Database.getLogin_database();
+	Login_Database ld = Login_Database.getLogin_database();
 	
+	/*
+	 * Redirects the user to a different page depending on the input.
+	 */
 	@FXML
 	public void login(ActionEvent event) throws Exception {
+		/*
+		 * checks if the password table is empty, and if so 
+		 * takes the user to the signUp page depending on the input
+		 * 
+		 */
 		String user = pass.getText();
-		//System.out.println(ld.isEmpty());
 		if(ld.isEmpty()) {
-			System.out.println(ld.isEmpty());
 			if(user.contentEquals("p")) {
 				Stage stage = (Stage)submitButton.getScene().getWindow();
 				stage.close();
 				signupStage();
 			}
 		}
+		
+		/*
+		 * Checks if password is within the database and either redirects 
+		 * or prompts them for a different password
+		 */
 		else {
 		try {
 			if(ld.isLogin(user)) {
@@ -44,12 +53,19 @@ public class InitialLoginController{
 				stage.close();
 				mainMenu();
 			}
+			else {
+				testLabel.setText("Wrong Password");
+			}
 			}catch(Exception localException) {
 				System.out.println(localException);
 			}
 		}
 	}
 	
+	/*
+	 * Button functionality that redirects the user to a page where they could
+	 * reset their password
+	 */
 	@FXML
 	public void resetPass(ActionEvent event) {
 		if(ld.isEmpty()) {
@@ -60,34 +76,16 @@ public class InitialLoginController{
 			loginStage();
 		}
 	}
+	
+	/*
+	 * Opens up the new stage for the reset Password page
+	 */
 	public void loginStage() {
 
 		try {
 			Stage signUpStage = new Stage();
-			FXMLLoader loader = new FXMLLoader();
+			//FXMLLoader loader = new FXMLLoader();
 			AnchorPane root = (AnchorPane)FXMLLoader.load(getClass().getResource("/resetPass/resetPassFXML.fxml"));
-			
-			//InitialLoginController initC = (InitialLoginController)loader.getController();
-			
-			Scene scene = new Scene(root);
-			signUpStage.setScene(scene);
-			//signUpStage.setTitle("Sign Up");
-			signUpStage.setResizable(false);
-			signUpStage.show();
-			} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-	
-	public void signupStage() {
-
-		try {
-			Stage signUpStage = new Stage();
-			FXMLLoader loader = new FXMLLoader();
-			AnchorPane root = (AnchorPane)FXMLLoader.load(getClass().getResource("/signUp/signUpFXML.fxml"));
-			
-			SignUpController signUpController = (SignUpController)loader.getController();
 			
 			Scene scene = new Scene(root);
 			signUpStage.setScene(scene);
@@ -100,14 +98,38 @@ public class InitialLoginController{
 		}
 	}
 	
+	/*
+	 * Opens up the new stage for the signUp page
+	 */
+	public void signupStage() {
+
+		try {
+			Stage signUpStage = new Stage();
+			//FXMLLoader loader = new FXMLLoader();
+			AnchorPane root = (AnchorPane)FXMLLoader.load(getClass().getResource("/signUp/signUpFXML.fxml"));
+			
+			Scene scene = new Scene(root);
+			signUpStage.setScene(scene);
+			signUpStage.setTitle("Sign Up");
+			signUpStage.setResizable(false);
+			signUpStage.show();
+			} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	
+	/*
+	 * Opens up the new stage for the Main Menu/ Student Forms
+	 * and redirects the user to that page
+	 */
 	public void mainMenu() {
 		try {
 			Stage signUpStage = new Stage();
-			FXMLLoader loader = new FXMLLoader();
 			AnchorPane root = (AnchorPane)FXMLLoader.load(getClass().getResource("/mainMenu/MainMenuFXML.fxml"));
 			
-			MainMenuController menuC = (MainMenuController)loader.getController();
-			//menuC.initialize(null, null);
+
 			Scene scene = new Scene(root);
 			signUpStage.setScene(scene);
 			signUpStage.setTitle("Sign Up");

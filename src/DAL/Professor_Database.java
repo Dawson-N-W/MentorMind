@@ -120,7 +120,7 @@ public class Professor_Database extends DB{
     	}
     }
     
-    public List<String> getList(int id){
+    public List<String> queryTableColumns(int id){
     	List<String> programs = new ArrayList<>();
     	String sql = null;
     	String col = null;
