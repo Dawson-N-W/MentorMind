@@ -11,7 +11,7 @@ public class Professor_Database extends DB{
     private final Connection conn;
     private PreparedStatement pstmt;
 
-
+    //singleton pattern
     private final static Professor_Database professor_database = new Professor_Database();
 
     public static Professor_Database getProfessor_database() {
@@ -28,7 +28,7 @@ public class Professor_Database extends DB{
                        List<String> courses, List<String> programs,
                        List<String> personalChars, List<String> academicChars) {
 
-
+        //insert into professor table
         String sql = "INSERT INTO Professor(name, title, school, department, email, phone) VALUES(?,?,?,?,?,?)";
 
         try {
@@ -41,12 +41,13 @@ public class Professor_Database extends DB{
             pstmt.setString(6, phone);
             pstmt.executeUpdate();
 
+            //get the id of the professor that was just inserted to use as reference for the other tables
             ResultSet rs = pstmt.getGeneratedKeys();
             int profId = -1;
             if (rs.next()) {
                 profId = rs.getInt(1);
             }
-
+            //insert into semesters table
             sql = "INSERT INTO Semesters(semester, profID) VALUES(?,?)";
             pstmt = conn.prepareStatement(sql);
             for (String semester : semesters) {
@@ -55,7 +56,7 @@ public class Professor_Database extends DB{
                 pstmt.executeUpdate();
 
             }
-
+            //insert into programs table
             sql = "INSERT INTO Programs(program_names, profID) VALUES(?,?)";
             pstmt = conn.prepareStatement(sql);
             for (String program : programs) {
@@ -64,7 +65,7 @@ public class Professor_Database extends DB{
                 pstmt.executeUpdate();
 
             }
-
+            //insert into courses table
             sql = "INSERT INTO Courses(courses, profID) VALUES(?,?)";
             pstmt = conn.prepareStatement(sql);
             for (String course : courses) {
@@ -73,7 +74,7 @@ public class Professor_Database extends DB{
                 pstmt.executeUpdate();
 
             }
-
+            //insert into academic characteristics table
             sql = "INSERT INTO Academic_Characteristics(academic_characteristics, profID) VALUES(?,?)";
             pstmt = conn.prepareStatement(sql);
             for (String a_char : academicChars) {
@@ -82,7 +83,7 @@ public class Professor_Database extends DB{
                 pstmt.executeUpdate();
 
             }
-
+            //insert into personal characteristics table
             sql = "INSERT INTO Personal_Characteristics(personal_characteristics, profID) VALUES(?,?)";
             pstmt = conn.prepareStatement(sql);
             for (String p_char : personalChars) {
@@ -96,7 +97,7 @@ public class Professor_Database extends DB{
             System.out.println(e.getMessage());
         }
     }
-
+    //delete professor from database
     public void deleteProf(int id) {
     	String sql = "DELETE FROM Professor WHERE id = ?";
     	try{
@@ -107,7 +108,7 @@ public class Professor_Database extends DB{
     		System.out.println(e.getMessage());
     	}
     }
-
+    //delete professor entries from specified tables
     public void deleteEntry(String table, int id) {
     	String sql = "DELETE FROM " + table + " WHERE profID = ?";
     	try{
@@ -118,9 +119,6 @@ public class Professor_Database extends DB{
     		System.out.println(e.getMessage());
     	}
     }
-    
-    
-    //EJ DOING RANDOM STUFF
     
     public List<String> getList(int id){
     	List<String> programs = new ArrayList<>();
@@ -167,16 +165,11 @@ public class Professor_Database extends DB{
 				programs.add(rs.getString(col));
 				
 			}
-			
-			
+
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-//    	for(String k: programs) {
-//    		System.out.print(k + "   ");
-//    	}
-//    	System.out.println();
     	
     	return programs;
     }

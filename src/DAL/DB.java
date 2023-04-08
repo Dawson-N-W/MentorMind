@@ -58,7 +58,7 @@ public abstract class DB {
         }
     }
 
-    public void deleteTable(String tableName){
+    public static void deleteTable(String tableName){
         String sql = "DROP TABLE " + tableName;
         try{
             Connection conn = DriverManager.getConnection(url);

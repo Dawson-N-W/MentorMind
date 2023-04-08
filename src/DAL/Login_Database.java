@@ -25,11 +25,10 @@ public class Login_Database extends DB {
 
     }
 
-
+    //insert method
     public void insert(String password) {
         String sql = "INSERT INTO login(password) VALUES(?)";
         try{
-        	//if(conn == null) {System.out.println("wth?????");}
             pstmt = conn.prepareStatement(sql);
             pstmt.setString(1, password);
             pstmt.executeUpdate();
@@ -38,7 +37,7 @@ public class Login_Database extends DB {
         }
     }
 
-
+    //delete account
     public void delete(int id) {
         String sql = "DELETE FROM login WHERE id = ?";
         try{
@@ -72,6 +71,7 @@ public class Login_Database extends DB {
     	
     }
 
+    //change password
     public void updatePassword(String newPassword, String oldP){
         String sql = "UPDATE login SET password = '" + newPassword + "' WHERE password = '" + oldP + "'";
         try{

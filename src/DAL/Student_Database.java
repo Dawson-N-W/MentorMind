@@ -38,6 +38,7 @@ public class Student_Database extends DB{
             pstmt.setString(8, semYear);
             pstmt.executeUpdate();
 
+            //get the id of the student that was just inserted to use as reference for the other tables
             ResultSet rs = pstmt.getGeneratedKeys();
             int studentId = -1;
             if (rs.next()) {
