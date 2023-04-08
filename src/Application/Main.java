@@ -8,7 +8,6 @@ import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-
         //Professor_Database professor_database = Professor_Database.getProfessor_database();
         
         InitialLogin initialLogin = new InitialLogin();
@@ -52,9 +51,6 @@ public class Main {
 
 
          */
-
-
-
 
 
     }
