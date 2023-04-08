@@ -1,5 +1,7 @@
 package Application;
 import DAL.*;
+import javafx.stage.Stage;
+import login.InitialLogin;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,7 +9,11 @@ import java.util.List;
 public class Main {
     public static void main(String[] args) {
 
-        Professor_Database professor_database = Professor_Database.getProfessor_database();
+        //Professor_Database professor_database = Professor_Database.getProfessor_database();
+        
+        InitialLogin initialLogin = new InitialLogin();
+        Stage loginStage = new Stage();
+        initialLogin.start(loginStage);
         /*
         List<String> semesters = new ArrayList<>(); semesters.add("Summer"); semesters.add("Fall");
         List<String> courses = new ArrayList<>(); courses.add("CS151 - OOP"); courses.add("CS171 - ML");

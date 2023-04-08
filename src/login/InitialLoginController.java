@@ -107,7 +107,7 @@ public class InitialLoginController{
 			AnchorPane root = (AnchorPane)FXMLLoader.load(getClass().getResource("/mainMenu/MainMenuFXML.fxml"));
 			
 			MainMenuController menuC = (MainMenuController)loader.getController();
-			
+			//menuC.initialize(null, null);
 			Scene scene = new Scene(root);
 			signUpStage.setScene(scene);
 			signUpStage.setTitle("Sign Up");

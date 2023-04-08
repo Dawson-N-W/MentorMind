@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Professor_Database extends DB{
@@ -116,6 +117,68 @@ public class Professor_Database extends DB{
     	} catch (SQLException e) {
     		System.out.println(e.getMessage());
     	}
+    }
+    
+    
+    //EJ DOING RANDOM STUFF
+    
+    public List<String> getList(int id){
+    	List<String> programs = new ArrayList<>();
+    	String sql = null;
+    	String col = null;
+    	// 1 - programs
+    	// 2 - semester
+    	// 3 - courses
+    	// 4 - personal
+    	// 5 - academic
+    	switch(id) {
+    	case 1:
+    		sql = "SELECT program_names FROM programs";
+    		col = "program_names";
+    		break;
+    		
+    	case 2:
+    		sql = "SELECT semester FROM semesters";
+    		col = "semester";
+    		break;
+    	
+    	case 3:
+    		sql = "SELECT courses FROM Courses";
+    		col = "courses";
+    		break;
+    		
+    	case 4:
+    		sql = "SELECT personal_characteristics FROM Personal_Characteristics";
+    		col = "personal_characteristics";
+    		break;
+    		
+    	case 5:
+    		sql = "SELECT academic_characteristics FROM Academic_Characteristics";
+    		col = "academic_characteristics";
+    		break;
+    	}
+    	
+    	try {
+    		pstmt = conn.prepareStatement(sql);
+    		
+			ResultSet rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				programs.add(rs.getString(col));
+				
+			}
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+//    	for(String k: programs) {
+//    		System.out.print(k + "   ");
+//    	}
+//    	System.out.println();
+    	
+    	return programs;
     }
 
 }
