@@ -4,6 +4,7 @@ import Members.RecLetter;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.sql.ResultSet;
 
 public class RecLetter_Database extends DB{
     private final String tableName = "RecLetters";
@@ -43,5 +44,31 @@ public class RecLetter_Database extends DB{
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
+    }
+
+    public void replaceLetter(RecLetter letter, int studentID) {
+    	String letterText = letter.getText();
+    	String sql = "UPDATE RecLetters SET letter = ? WHERE studentID = ?";
+    	try {
+    		pstmt = conn.prepareStatement(sql);
+    		pstmt.setString(1, letterText);
+    		pstmt.setInt(2, studentID);
+    		pstmt.executeUpdate();
+    	} catch (SQLException e) {
+    		System.out.println(e.getMessage());
+    	}
+    }
+
+    public String getLetter(int studentID) {
+    	String sql = "SELECT letter FROM RecLetters WHERE studentID = ?";
+    	try {
+    		pstmt = conn.prepareStatement(sql);
+    		pstmt.setInt(1, studentID);
+    		ResultSet rs = pstmt.executeQuery();
+    		return rs.getString("recLetter");
+    	} catch (SQLException e) {
+    		System.out.println(e.getMessage());
+    	}
+    	return null;
     }
 }

@@ -41,6 +41,17 @@ public class DB {
         }
     }
 
+    public static void addColumn(String tableName, String columnName, String type){
+    	String sql = "ALTER TABLE " + tableName + " ADD COLUMN " + columnName + " " + type;
+    	try{
+            Connection conn = DriverManager.getConnection(url);
+            Statement stmt = conn.createStatement();
+            stmt.execute(sql);
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
     public static void deleteTable(String tableName){
         String sql = "DROP TABLE " + tableName;
         try{

@@ -119,6 +119,28 @@ public class Professor_Database extends DB{
     		System.out.println(e.getMessage());
     	}
     }
+
+    //get professor data
+    public List<String> getProfData(int id){
+    	List<String> data = new ArrayList<>();
+    	String sql = "SELECT * FROM Professor WHERE id = ?";
+    	try {
+    		pstmt = conn.prepareStatement(sql);
+    		pstmt.setInt(1, id);
+    		ResultSet rs = pstmt.executeQuery();
+    		while(rs.next()) {
+    			data.add(rs.getString("name"));
+    			data.add(rs.getString("title"));
+    			data.add(rs.getString("school"));
+    			data.add(rs.getString("department"));
+    			data.add(rs.getString("email"));
+    			data.add(rs.getString("phone"));
+    		}
+    	} catch (SQLException e) {
+    		System.out.println(e.getMessage());
+    	}
+    	return data;
+    }
     
     public List<String> queryTableColumns(int id){
     	List<String> programs = new ArrayList<>();
