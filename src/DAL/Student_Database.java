@@ -123,24 +123,31 @@ public class Student_Database extends DB{
 
     public Student searchStudent(String lastName) {
         String sql = "SELECT * FROM students WHERE lastName = ?";
+        Student student = new Student();
         try{
             pstmt = conn.prepareStatement(sql);
             pstmt.setString(1, lastName);
-            pstmt.executeQuery();
+            ResultSet rs = pstmt.executeQuery();
+            String firstName = rs.getString("firstName");
+            String lastname = rs.getString("lastName");
+            String gender = rs.getString("gender");
+            String school = rs.getString("school");
+            String semester = rs.getString("semester");
+            String date = rs.getString("date");
+            String program = rs.getString("program");
+            String semYear = rs.getString("semYear");
+            student.setFirstName(firstName);
+            student.setLastName(lastname);
+            student.setGender(gender);
+            student.setSchool(school);
+            student.setSemester(semester);
+            student.setDate(date);
+            student.setProgram(program);
+            student.setSemYear(Integer.parseInt(semYear));
+
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
-
-        //create a student object and return it
-        Student student = new Student();
-        student.setFirstName("firstName");
-        student.setLastName("lastName");
-        student.setGender("gender");
-        student.setSchool("school");
-        student.setSemester("semester");
-        student.setDate("date");
-        student.setProgram("program");
-        student.setSemYear(Integer.parseInt("semYear"));
 
         String sql2 = "SELECT * FROM Student_PChar WHERE studentID = ?";
         List<String> personalCharList = new ArrayList<String>();
