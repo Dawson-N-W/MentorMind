@@ -4,10 +4,14 @@ import DAL.Professor_Database;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import javafx.beans.value.ObservableValue;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -84,6 +88,11 @@ public class MainMenuController implements Initializable{
     private List<TextField> grades = new ArrayList<>();
     
     
+    private ObservableList<String> coursesObservable;
+    private ObservableList<String> pCharsObservable;
+    private ObservableList<String> aCharsObservable;
+    
+    
     /*
      * initializes all of the drop-down menus with the columns
      * of data from their respective tables
@@ -95,6 +104,7 @@ public class MainMenuController implements Initializable{
 		genderCombo.getItems().addAll(genders);
 		
 		programs.getItems().addAll(programL);
+		
 		
 		semesters.getItems().addAll(semesterL);
 		
@@ -110,6 +120,7 @@ public class MainMenuController implements Initializable{
 		
 		personalChars.getItems().addAll(pcL);
 		personalChars.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+		
 		academicChars.getItems().addAll(acL);
 		academicChars.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 	}
@@ -122,6 +133,73 @@ public class MainMenuController implements Initializable{
 		Stage stage = (Stage)logoutButton.getScene().getWindow();
 		stage.close();
 		logoutStage();
+	}
+	
+	//DATE FORMAT FOR LATER
+	// LocalDate theDate = year.getValue();
+	//String formattedDate = theDate.format(DateTimeFormatter.ofPattern("MMM-dd-yyyy"));
+	
+	/*
+	 * Checks that form is completed and contains valid input
+	 */
+	@FXML
+	public void checker() {
+		 LocalDate theDate = schoolDate.getValue();
+		
+		if(fName.getText().trim().isEmpty() || lName.getText().trim().isEmpty()) {
+			//
+		}
+		else if(schoolName.getText().trim().isEmpty() || year.getText().trim().isEmpty()) {
+			
+		}
+		else if(theDate == null){
+			//label
+		}
+		else if(genderCombo.getSelectionModel().isEmpty()) {
+			//have a label print something out to the screen
+		}
+		else if(programs.getSelectionModel().isEmpty()) {
+			//have the label print something
+		}
+		else if(semesters.getSelectionModel().isEmpty() || courses.getSelectionModel().isEmpty()){
+			//label
+		}
+		else if(personalChars.getSelectionModel().isEmpty() || academicChars.getSelectionModel().isEmpty()) {
+			//label
+		}
+		else {
+			ObservableList<Integer> courseIndices = courses.getSelectionModel().getSelectedIndices();
+			boolean lastCheck = true;
+			for(int i = 0; i < courseIndices.size(); i++) {
+				if(grades.get(courseIndices.get(i)).getText().trim().isEmpty()) {
+					//label
+					lastCheck = false;
+				}
+			}
+			if(lastCheck) {
+				createStudent(theDate);
+			}
+			
+		}
+		
+	}
+	
+	/*
+	 * Creates student object and transitions to new recommendation letter
+	 */
+	
+	private void createStudent(LocalDate theDate) {
+		String gender = genderCombo.getValue();
+		String firstN = fName.getText();
+		String lastN = lName.getText();
+		String schoolN = schoolName.getText();
+		String yearsFinal = year.getText();
+		String dateFinal = theDate.format(DateTimeFormatter.ofPattern("MMM-dd-yyyy"));
+		String programFinal = programs.getSelectionModel().getSelectedItem();
+		String semesterFinal = semesters.getSelectionModel().getSelectedItem();
+
+		coursesObservable = courses.getSelectionModel().getSelectedItems();
+		pCharsObservable = personalChars.getSelectionModel().getSelectedItems();
 	}
 	
 	/*

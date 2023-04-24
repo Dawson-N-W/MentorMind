@@ -1,4 +1,5 @@
 package Application;
+import DAL.DB;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import login.*;
