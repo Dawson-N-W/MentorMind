@@ -6,7 +6,8 @@ import login.*;
 
 public class Main extends Application{
     public static void main(String[] args) {
-        launch(args);
+        DB.addColumn("Student_Courses", "Grade", "TEXT");
+        //launch(args);
     }
 
 	@Override
