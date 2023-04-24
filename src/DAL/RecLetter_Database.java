@@ -46,6 +46,19 @@ public class RecLetter_Database extends DB{
         }
     }
 
+    public void replaceLetter(RecLetter letter, int studentID) {
+    	String letterText = letter.getText();
+    	String sql = "UPDATE RecLetters SET letter = ? WHERE studentID = ?";
+    	try {
+    		pstmt = conn.prepareStatement(sql);
+    		pstmt.setString(1, letterText);
+    		pstmt.setInt(2, studentID);
+    		pstmt.executeUpdate();
+    	} catch (SQLException e) {
+    		System.out.println(e.getMessage());
+    	}
+    }
+
     public String getLetter(int studentID) {
     	String sql = "SELECT letter FROM RecLetters WHERE studentID = ?";
     	try {

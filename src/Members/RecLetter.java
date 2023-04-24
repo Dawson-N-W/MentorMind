@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class RecLetter {
-    private final StringBuilder sb;
+    private StringBuilder sb;
 
     private final LocalDate currentDate = LocalDate.now();
     private final String dateString = currentDate.toString();
@@ -82,6 +82,10 @@ public class RecLetter {
 
 
 
+    }
+
+    public void updateText(String text){
+        sb = new StringBuilder(text);
     }
 
     //get professor data from professor database
