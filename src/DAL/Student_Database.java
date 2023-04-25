@@ -123,6 +123,7 @@ public class Student_Database extends DB{
 
     public Student searchStudent(String lastName) {
         String sql = "SELECT * FROM students WHERE lastName = ?";
+        String studentID = "";
         Student student = new Student();
         try{
             pstmt = conn.prepareStatement(sql);
@@ -145,6 +146,8 @@ public class Student_Database extends DB{
             student.setProgram(program);
             student.setSemYear(Integer.parseInt(semYear));
 
+            studentID = String.valueOf(rs.getInt("id"));
+
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
@@ -154,7 +157,7 @@ public class Student_Database extends DB{
 
         try {
             pstmt = conn.prepareStatement(sql2);
-            pstmt.setString(1, "studentID");
+            pstmt.setString(1, studentID);
             ResultSet rs = pstmt.executeQuery();
 
             // Loop through the result set and add each personal characteristic to the list
@@ -174,7 +177,7 @@ public class Student_Database extends DB{
 
         try {
             pstmt = conn.prepareStatement(sql3);
-            pstmt.setString(1, "studentID");
+            pstmt.setString(1, studentID);
             ResultSet rs = pstmt.executeQuery();
 
             // Loop through the result set and add each academic characteristic to the list
@@ -194,7 +197,7 @@ public class Student_Database extends DB{
 
         try {
             pstmt = conn.prepareStatement(sql4);
-            pstmt.setString(1, "studentID");
+            pstmt.setString(1, studentID);
             ResultSet rs = pstmt.executeQuery();
 
             // Loop through the result set and add each course to the list
