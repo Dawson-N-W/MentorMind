@@ -123,31 +123,41 @@ public class Student_Database extends DB{
 
     public Student searchStudent(String lastName) {
         String sql = "SELECT * FROM students WHERE lastName = ?";
+        String studentID = "";
+        Student student = new Student();
         try{
             pstmt = conn.prepareStatement(sql);
             pstmt.setString(1, lastName);
-            pstmt.executeQuery();
+            ResultSet rs = pstmt.executeQuery();
+            String firstName = rs.getString("firstName");
+            String lastname = rs.getString("lastName");
+            String gender = rs.getString("gender");
+            String school = rs.getString("school");
+            String semester = rs.getString("semester");
+            String date = rs.getString("date");
+            String program = rs.getString("program");
+            String semYear = rs.getString("semYear");
+            student.setFirstName(firstName);
+            student.setLastName(lastname);
+            student.setGender(gender);
+            student.setSchool(school);
+            student.setSemester(semester);
+            student.setDate(date);
+            student.setProgram(program);
+            student.setSemYear(Integer.parseInt(semYear));
+
+            studentID = String.valueOf(rs.getInt("id"));
+
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
-
-        //create a student object and return it
-        Student student = new Student();
-        student.setFirstName("firstName");
-        student.setLastName("lastName");
-        student.setGender("gender");
-        student.setSchool("school");
-        student.setSemester("semester");
-        student.setDate("date");
-        student.setProgram("program");
-        student.setSemYear(Integer.parseInt("semYear"));
 
         String sql2 = "SELECT * FROM Student_PChar WHERE studentID = ?";
         List<String> personalCharList = new ArrayList<String>();
 
         try {
             pstmt = conn.prepareStatement(sql2);
-            pstmt.setString(1, "studentID");
+            pstmt.setString(1, studentID);
             ResultSet rs = pstmt.executeQuery();
 
             // Loop through the result set and add each personal characteristic to the list
@@ -167,7 +177,7 @@ public class Student_Database extends DB{
 
         try {
             pstmt = conn.prepareStatement(sql3);
-            pstmt.setString(1, "studentID");
+            pstmt.setString(1, studentID);
             ResultSet rs = pstmt.executeQuery();
 
             // Loop through the result set and add each academic characteristic to the list
@@ -187,7 +197,7 @@ public class Student_Database extends DB{
 
         try {
             pstmt = conn.prepareStatement(sql4);
-            pstmt.setString(1, "studentID");
+            pstmt.setString(1, studentID);
             ResultSet rs = pstmt.executeQuery();
 
             // Loop through the result set and add each course to the list
@@ -205,5 +215,23 @@ public class Student_Database extends DB{
         student.setCourseList(courseList);
 
         return student;
+    }
+
+    public int getStudentID(Student student){
+        String firstName = student.getFirstName();
+        String lastName = student.getLastName();
+        String sql = "SELECT * FROM students WHERE firstName = ? AND lastName = ?";
+        String studentID = "";
+        try{
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, firstName);
+            pstmt.setString(2, lastName);
+            ResultSet rs = pstmt.executeQuery();
+            studentID = String.valueOf(rs.getInt("id"));
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return Integer.parseInt(studentID);
     }
 }

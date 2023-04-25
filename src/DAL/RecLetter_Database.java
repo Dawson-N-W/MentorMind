@@ -24,7 +24,7 @@ public class RecLetter_Database extends DB{
 
     public void addLetter(RecLetter letter, int studentID) {
         String letterText = letter.getText();
-    	String sql = "INSERT INTO RecLetters(letter, studentID) VALUES(?,?)";
+    	String sql = "INSERT INTO RecLetters(recLetter, studentID) VALUES(?,?)";
         try{
             pstmt = conn.prepareStatement(sql);
             pstmt.setString(1, letterText);
@@ -60,7 +60,7 @@ public class RecLetter_Database extends DB{
     }
 
     public String getLetter(int studentID) {
-    	String sql = "SELECT letter FROM RecLetters WHERE studentID = ?";
+    	String sql = "SELECT recLetter FROM RecLetters WHERE studentID = ?";
     	try {
     		pstmt = conn.prepareStatement(sql);
     		pstmt.setInt(1, studentID);
