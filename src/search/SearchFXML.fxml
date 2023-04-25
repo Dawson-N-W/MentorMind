@@ -28,5 +28,7 @@
       <Button fx:id="resetButton" layoutX="85.0" layoutY="18.0" mnemonicParsing="false" onAction="#resetPassword" prefHeight="27.0" prefWidth="124.0" text="Reset Password" />
       <Button fx:id="recLButton" layoutX="367.0" layoutY="488.0" mnemonicParsing="false" onAction="#recLetter" text="Open" />
       <Button fx:id="newStudentButton" layoutX="551.0" layoutY="18.0" mnemonicParsing="false" onAction="#newStudent" prefHeight="27.0" prefWidth="124.0" text="New Student" />
+      <Button fx:id="detailsButton" layoutX="256.0" layoutY="488.0" mnemonicParsing="false" onAction="#updateStudent" prefHeight="27.0" prefWidth="102.0" text="Update Details" />
+      <Label fx:id="promptLabel" layoutX="146.0" layoutY="49.0" prefHeight="17.0" prefWidth="383.0" textFill="WHITE" />
    </children>
 </AnchorPane>

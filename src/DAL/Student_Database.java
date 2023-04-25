@@ -114,6 +114,11 @@ public class Student_Database extends DB{
             pstmt = conn.prepareStatement(sql);
             pstmt.setInt(1, id);
             pstmt.executeUpdate();
+            
+            sql = "DELETE FROM recLetters WHERE studentID = ?";
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1, id);
+            pstmt.executeUpdate();
 
         } catch (SQLException e) {
             System.out.println(e.getMessage());

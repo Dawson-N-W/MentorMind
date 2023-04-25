@@ -15,7 +15,9 @@ public class Main extends Application{
 //<<<<<<< HEAD
         //DB.addColumn("Student_Courses", "Grade", "TEXT");
 //    	 Student_Database student_database = Student_Database.getStudent_database();
-//    	 student_database.deleteStudent(3);
+//    	 student_database.deleteStudent(9);
+//    	 student_database.deleteStudent(7);
+//    	 student_database.deleteStudent(8);
         launch(args);
 //=======
 //        /*Student student = new Student();

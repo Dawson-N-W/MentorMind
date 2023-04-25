@@ -16,6 +16,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import mainMenu.MainMenuController;
 
 public class RecommendationController implements Initializable{
 	@FXML private TextArea recLetter;
@@ -63,6 +64,12 @@ public class RecommendationController implements Initializable{
 		
 	}
 	
+	@FXML public void updateStudent() {
+		Stage stage = (Stage)detailsButton.getScene().getWindow();
+		stage.close();
+		studentForm();
+	}
+	
 	/*
 	 * Button functionality that takes the user back to the login page
 	 */
@@ -83,6 +90,25 @@ public class RecommendationController implements Initializable{
 		stage.close();
 		resetPStage();
 	}
+	
+	private void studentForm() {
+		try {
+			Stage signUpStage = new Stage();
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/mainMenu/MainMenuFXML.fxml"));
+			//AnchorPane root = (AnchorPane)FXMLLoader.load(getClass().getResource("/mainMenu/MainMenuFXML.fxml"));
+			
+			MainMenuController mc = new MainMenuController(recStudent);
+			loader.setController(mc);
+			AnchorPane root = loader.load();
+			Scene scene = new Scene(root);
+			signUpStage.setScene(scene);
+			signUpStage.setResizable(false);
+			signUpStage.show();
+		} catch (IOException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+}
 	
 	private void searchStage() {
 		try {

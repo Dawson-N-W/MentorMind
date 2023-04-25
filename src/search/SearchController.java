@@ -10,19 +10,23 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import mainMenu.MainMenuController;
 import recommendation.RecommendationController;
 
 public class SearchController {
 	@FXML private TextField searchField;
+	@FXML private Label promptLabel;
 	@FXML private Button logoutButton;
 	@FXML private Button resetButton;
 	@FXML private Button recLButton;
 	@FXML private Button newStudentButton;
 	@FXML private Button findButton;
+	@FXML private Button detailsButton;
 	@FXML private ListView<String> studentList;
 	private List<Student> students = new ArrayList<>();
 	private Student chosenOne = new Student();
@@ -53,7 +57,7 @@ public class SearchController {
 		logoutStage();
 	}
 	
-	@FXML public void recLetter() {
+	private void chosenSetter() {
 		String temp = studentList.getSelectionModel().getSelectedItem();
 		for(Student s: students) {
 			if(temp.contentEquals(s.getFirstName() + " " + s.getLastName() + ", " +s.getSemYear())) {
@@ -61,9 +65,19 @@ public class SearchController {
 				break;
 			}
 		}
-		Stage stage = (Stage)recLButton.getScene().getWindow();
-		stage.close();
-		recLStage();
+	}
+	
+	@FXML public void recLetter() {
+		if(studentList.getSelectionModel().isEmpty()) {
+			promptLabel.setText("Please select a student");
+		}
+		else {
+			chosenSetter();
+			Stage stage = (Stage)recLButton.getScene().getWindow();
+			stage.close();
+			recLStage();
+		}
+
 	}
 	
 	/*
@@ -83,6 +97,20 @@ public class SearchController {
 		studentForm();
 	}
 	
+	@FXML public void updateStudent() {
+		if(studentList.getSelectionModel().isEmpty()) {
+			promptLabel.setText("Please select a student");
+			
+		}
+		else {
+			chosenSetter();
+			Stage stage = (Stage)detailsButton.getScene().getWindow();
+			stage.close();
+			updateStudentForm();
+		}
+
+	}
+	
 	public void logoutStage() {
 		try {
 			Stage signUpStage = new Stage();
@@ -98,20 +126,7 @@ public class SearchController {
 		}
 	}
 	
-	private void studentForm() {
-		try {
-			Stage signUpStage = new Stage();
-			AnchorPane root = (AnchorPane)FXMLLoader.load(getClass().getResource("/mainMenu/MainMenuFXML.fxml"));
-			
-			Scene scene = new Scene(root);
-			signUpStage.setScene(scene);
-			signUpStage.setResizable(false);
-			signUpStage.show();
-		} catch (IOException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
-	}
-}
+
 	
 	/*
 	 * Opens up the new stage for the Reset Password page
@@ -135,6 +150,44 @@ public class SearchController {
 			e.printStackTrace();
 		}
 	}
+	
+	private void studentForm() {
+		try {
+			Stage signUpStage = new Stage();
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/mainMenu/MainMenuFXML.fxml"));
+			//AnchorPane root = (AnchorPane)FXMLLoader.load(getClass().getResource("/mainMenu/MainMenuFXML.fxml"));
+			
+			MainMenuController mc = new MainMenuController();
+			loader.setController(mc);
+			AnchorPane root = loader.load();
+			Scene scene = new Scene(root);
+			signUpStage.setScene(scene);
+			signUpStage.setResizable(false);
+			signUpStage.show();
+		} catch (IOException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+}
+	
+	private void updateStudentForm() {
+		try {
+			Stage signUpStage = new Stage();
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/mainMenu/MainMenuFXML.fxml"));
+			//AnchorPane root = (AnchorPane)FXMLLoader.load(getClass().getResource("/mainMenu/MainMenuFXML.fxml"));
+			
+			MainMenuController mc = new MainMenuController(chosenOne);
+			loader.setController(mc);
+			AnchorPane root = loader.load();
+			Scene scene = new Scene(root);
+			signUpStage.setScene(scene);
+			signUpStage.setResizable(false);
+			signUpStage.show();
+		} catch (IOException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+}
 	
 	public void recLStage() {
 

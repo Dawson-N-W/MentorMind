@@ -32,11 +32,15 @@ import recommendation.RecommendationController;
 
 public class MainMenuController implements Initializable{
 
+	@FXML private Label titleLabel;
+	
     @FXML
     private TextField fName;
 
     @FXML
     private TextField lName;
+    
+    @FXML private Button searchButton;
 
     @FXML
     private ComboBox<String> genderCombo;
@@ -100,6 +104,18 @@ public class MainMenuController implements Initializable{
     
     private Student finalStudent = new Student();
     
+    private Student initialStudent = new Student();
+    private boolean currStudent = false;
+    
+    public MainMenuController() {
+    	
+    }
+    
+    public MainMenuController(Student initialStudent) {
+    	this.initialStudent = initialStudent;
+    	currStudent = true;
+    }
+    
     /*
      * initializes all of the drop-down menus with the columns
      * of data from their respective tables
@@ -130,8 +146,53 @@ public class MainMenuController implements Initializable{
 		
 		academicChars.getItems().addAll(acL);
 		academicChars.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+		
+		if(currStudent) {
+			titleLabel.setText("Update Student Details");
+			fName.setText(initialStudent.getFirstName());
+			lName.setText(initialStudent.getLastName());
+			genderCombo.getSelectionModel().select(initialStudent.getGender());
+			schoolName.setText(initialStudent.getSchool());
+			year.setText(String.valueOf(initialStudent.getSemYear()));
+			programs.getSelectionModel().select(initialStudent.getProgram());
+			semesters.getSelectionModel().select(initialStudent.getSemester());
+			
+			//LocalDate conversion
+			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM-dd-yyyy");
+			String date = initialStudent.getDate();
+			LocalDate localDate = LocalDate.parse(date, formatter);
+			schoolDate.setValue(localDate);
+			
+			autoSelect(personalChars, pcL, initialStudent.getPersonalCharsList());
+			autoSelect(academicChars, acL, initialStudent.getAcademicCharsList());
+			
+			//courses and respective grades
+			List<List<String>> list = initialStudent.getCourseList();
+			
+			for(List<String> s : list) {
+				int courseIndex = courseL.indexOf(s.get(0));
+				if( courseIndex > -1) {
+					courses.getSelectionModel().select(s.get(0));
+					grades.get(courseIndex).setText(s.get(1));
+				}
+			}
+			
+		}
 	}
 	
+	private void autoSelect(ListView<String> l, List<String> selection, List<String> list) {
+		for(String s: selection) {
+			if(list.contains(s)) {
+				l.getSelectionModel().select(s);
+			}
+		}
+	}
+	
+	@FXML public void searchPage() {
+		Stage stage = (Stage)logoutButton.getScene().getWindow();
+		stage.close();
+		searchStage();
+	}
 	/*
 	 * Button functionality that takes the user back to the login page
 	 */
@@ -142,9 +203,6 @@ public class MainMenuController implements Initializable{
 		logoutStage();
 	}
 	
-	//DATE FORMAT FOR LATER
-	// LocalDate theDate = year.getValue();
-	//String formattedDate = theDate.format(DateTimeFormatter.ofPattern("MMM-dd-yyyy"));
 	
 	/*
 	 * Checks that form is completed and contains valid input
@@ -241,6 +299,11 @@ public class MainMenuController implements Initializable{
 		finalStudent.setAcademicCharsList(academicChars.getSelectionModel().getSelectedItems());
 		finalStudent.setCourseList(courseList);
 		
+		if(currStudent) {
+			//finalStudent = initialStudent;
+			sd.deleteStudent(sd.getStudentID(initialStudent));
+		}
+
 		sd.insert(finalStudent);
 		
 		Stage stage = (Stage)this.compile.getScene().getWindow();
@@ -304,6 +367,21 @@ public class MainMenuController implements Initializable{
 			Scene scene = new Scene(root);
 			signUpStage.setScene(scene);
 			signUpStage.setTitle("Reset Password");
+			signUpStage.setResizable(false);
+			signUpStage.show();
+			} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	private void searchStage() {
+		try {
+			Stage signUpStage = new Stage();
+			AnchorPane root = (AnchorPane)FXMLLoader.load(getClass().getResource("/search/SearchFXML.fxml"));
+			
+			Scene scene = new Scene(root);
+			signUpStage.setScene(scene);
 			signUpStage.setResizable(false);
 			signUpStage.show();
 			} catch (IOException e) {
