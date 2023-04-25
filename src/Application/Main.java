@@ -1,5 +1,6 @@
 package Application;
 import DAL.DB;
+import DAL.RecLetter_Database;
 import DAL.Student_Database;
 import Members.RecLetter;
 import Members.Student;
@@ -45,12 +46,16 @@ public class Main extends Application{
         */
         Student_Database student_database = Student_Database.getStudent_database();
         Student student = student_database.searchStudent("Doe");
+        int studentID = student_database.getStudentID(student);
         System.out.println(student.getFirstName());
         System.out.println(student.getCourseList());
         RecLetter recLetter = new RecLetter();
         recLetter.compile(student);
-        String letter = recLetter.getText();
+        RecLetter_Database recLetter_database = RecLetter_Database.getRecLetter_database();
+        recLetter_database.addLetter(recLetter, studentID);
+        String letter = recLetter_database.getLetter(studentID);
         System.out.println(letter);
+
         //launch(args);
     }
 
