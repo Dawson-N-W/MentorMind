@@ -2,6 +2,7 @@ package DAL;
 
 import Members.Student;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -93,7 +94,7 @@ public class Student_Database extends DB{
 
     }
     public void deleteStudent(int id) {
-        String sql = "DELETE FROM student WHERE id = ?";
+        String sql = "DELETE FROM students WHERE id = ?";
         try{
             pstmt = conn.prepareStatement(sql);
             pstmt.setInt(1, id);
@@ -118,103 +119,221 @@ public class Student_Database extends DB{
             System.out.println(e.getMessage());
         }
     }
+    
+    //returns lists of studentIDs after search
+    public List<Integer> searchID(String val){
+    	String sql = "SELECT * FROM students WHERE ? IN (firstName, lastName, semYear)";
+    	ArrayList<Integer> studentID = new ArrayList<>();
+    	try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, val);
+			ResultSet rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+					studentID.add(rs.getInt("id"));
+				
+			}
+    	}catch(SQLException e) {
+    		e.printStackTrace();
+    	}
+    	return studentID;
+    }
 
     //search for a student via last name
 
-    public Student searchStudent(String lastName) {
-        String sql = "SELECT * FROM students WHERE lastName = ?";
-        String studentID = "";
-        Student student = new Student();
-        try{
-            pstmt = conn.prepareStatement(sql);
-            pstmt.setString(1, lastName);
-            ResultSet rs = pstmt.executeQuery();
-            String firstName = rs.getString("firstName");
-            String lastname = rs.getString("lastName");
-            String gender = rs.getString("gender");
-            String school = rs.getString("school");
-            String semester = rs.getString("semester");
-            String date = rs.getString("date");
-            String program = rs.getString("program");
-            String semYear = rs.getString("semYear");
-            student.setFirstName(firstName);
-            student.setLastName(lastname);
-            student.setGender(gender);
-            student.setSchool(school);
-            student.setSemester(semester);
-            student.setDate(date);
-            student.setProgram(program);
-            student.setSemYear(Integer.parseInt(semYear));
+    public List<Student> searchStudent(String val) {
+    	List<Integer> studentIDs = searchID(val);
+    	List<Student> students = new ArrayList<>();
+    	
+    	for(Integer sID : studentIDs) {
+    		String sql = "SELECT * FROM students WHERE id = ?";
+    		String studentID = "";
+    		Student student = new Student();
+            try{
+                pstmt = conn.prepareStatement(sql);
+                pstmt.setString(1, String.valueOf(sID));
+                ResultSet rs = pstmt.executeQuery();
+                String firstName = rs.getString("firstName");
+                String lastname = rs.getString("lastName");
+                String gender = rs.getString("gender");
+                String school = rs.getString("school");
+                String semester = rs.getString("semester");
+                String date = rs.getString("date");
+                String program = rs.getString("program");
+                String semYear = rs.getString("semYear");
+                student.setFirstName(firstName);
+                student.setLastName(lastname);
+                student.setGender(gender);
+                student.setSchool(school);
+                student.setSemester(semester);
+                student.setDate(date);
+                student.setProgram(program);
+                student.setSemYear(Integer.parseInt(semYear));
 
-            studentID = String.valueOf(rs.getInt("id"));
+                studentID = String.valueOf(rs.getInt("id"));
 
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
-
-        String sql2 = "SELECT * FROM Student_PChar WHERE studentID = ?";
-        List<String> personalCharList = new ArrayList<String>();
-
-        try {
-            pstmt = conn.prepareStatement(sql2);
-            pstmt.setString(1, studentID);
-            ResultSet rs = pstmt.executeQuery();
-
-            // Loop through the result set and add each personal characteristic to the list
-            while (rs.next()) {
-                String personalChar = rs.getString("personal_characteristics");
-                personalCharList.add(personalChar);
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
             }
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
 
-        //add personal characteristics to student object
-        student.setPersonalCharsList(personalCharList);
+            String sql2 = "SELECT * FROM Student_PChar WHERE studentID = ?";
+            List<String> personalCharList = new ArrayList<String>();
 
-        String sql3 = "SELECT * FROM Student_AChar WHERE studentID = ?";
-        List<String> academicCharList = new ArrayList<String>();
+            try {
+                pstmt = conn.prepareStatement(sql2);
+                pstmt.setString(1, studentID);
+                ResultSet rs = pstmt.executeQuery();
 
-        try {
-            pstmt = conn.prepareStatement(sql3);
-            pstmt.setString(1, studentID);
-            ResultSet rs = pstmt.executeQuery();
-
-            // Loop through the result set and add each academic characteristic to the list
-            while (rs.next()) {
-                String academicChar = rs.getString("academic_characteristics");
-                academicCharList.add(academicChar);
+                // Loop through the result set and add each personal characteristic to the list
+                while (rs.next()) {
+                    String personalChar = rs.getString("personal_characteristics");
+                    personalCharList.add(personalChar);
+                }
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
             }
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
 
-        //add academic characteristics to student object
-        student.setAcademicCharsList(academicCharList);
+            //add personal characteristics to student object
+            student.setPersonalCharsList(personalCharList);
 
-        String sql4 = "SELECT * FROM Student_Courses WHERE studentID = ?";
-        List<List<String>> courseList = new ArrayList<List<String>>();
+            String sql3 = "SELECT * FROM Student_AChar WHERE studentID = ?";
+            List<String> academicCharList = new ArrayList<String>();
 
-        try {
-            pstmt = conn.prepareStatement(sql4);
-            pstmt.setString(1, studentID);
-            ResultSet rs = pstmt.executeQuery();
+            try {
+                pstmt = conn.prepareStatement(sql3);
+                pstmt.setString(1, studentID);
+                ResultSet rs = pstmt.executeQuery();
 
-            // Loop through the result set and add each course to the list
-            while (rs.next()) {
-                List<String> course = new ArrayList<String>();
-                course.add(rs.getString("courses"));
-                course.add(rs.getString("Grade"));
-                courseList.add(course);
+                // Loop through the result set and add each academic characteristic to the list
+                while (rs.next()) {
+                    String academicChar = rs.getString("academic_characteristics");
+                    academicCharList.add(academicChar);
+                }
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
             }
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
 
-        //add courses to student object
-        student.setCourseList(courseList);
+            //add academic characteristics to student object
+            student.setAcademicCharsList(academicCharList);
 
-        return student;
+            String sql4 = "SELECT * FROM Student_Courses WHERE studentID = ?";
+            List<List<String>> courseList = new ArrayList<List<String>>();
+
+            try {
+                pstmt = conn.prepareStatement(sql4);
+                pstmt.setString(1, studentID);
+                ResultSet rs = pstmt.executeQuery();
+
+                // Loop through the result set and add each course to the list
+                while (rs.next()) {
+                    List<String> course = new ArrayList<String>();
+                    course.add(rs.getString("courses"));
+                    course.add(rs.getString("Grade"));
+                    courseList.add(course);
+                }
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+            }
+
+            //add courses to student object
+            student.setCourseList(courseList);
+    		
+            students.add(student);
+    		
+    	}
+//        String sql = "SELECT * FROM students WHERE lastName = ?";
+//        String studentID = "";
+//        Student student = new Student();
+//        try{
+//            pstmt = conn.prepareStatement(sql);
+//            pstmt.setString(1, lastName);
+//            ResultSet rs = pstmt.executeQuery();
+//            String firstName = rs.getString("firstName");
+//            String lastname = rs.getString("lastName");
+//            String gender = rs.getString("gender");
+//            String school = rs.getString("school");
+//            String semester = rs.getString("semester");
+//            String date = rs.getString("date");
+//            String program = rs.getString("program");
+//            String semYear = rs.getString("semYear");
+//            student.setFirstName(firstName);
+//            student.setLastName(lastname);
+//            student.setGender(gender);
+//            student.setSchool(school);
+//            student.setSemester(semester);
+//            student.setDate(date);
+//            student.setProgram(program);
+//            student.setSemYear(Integer.parseInt(semYear));
+//
+//            studentID = String.valueOf(rs.getInt("id"));
+//
+//        } catch (SQLException e) {
+//            System.out.println(e.getMessage());
+//        }
+//
+//        String sql2 = "SELECT * FROM Student_PChar WHERE studentID = ?";
+//        List<String> personalCharList = new ArrayList<String>();
+//
+//        try {
+//            pstmt = conn.prepareStatement(sql2);
+//            pstmt.setString(1, studentID);
+//            ResultSet rs = pstmt.executeQuery();
+//
+//            // Loop through the result set and add each personal characteristic to the list
+//            while (rs.next()) {
+//                String personalChar = rs.getString("personal_characteristics");
+//                personalCharList.add(personalChar);
+//            }
+//        } catch (SQLException e) {
+//            System.out.println(e.getMessage());
+//        }
+//
+//        //add personal characteristics to student object
+//        student.setPersonalCharsList(personalCharList);
+//
+//        String sql3 = "SELECT * FROM Student_AChar WHERE studentID = ?";
+//        List<String> academicCharList = new ArrayList<String>();
+//
+//        try {
+//            pstmt = conn.prepareStatement(sql3);
+//            pstmt.setString(1, studentID);
+//            ResultSet rs = pstmt.executeQuery();
+//
+//            // Loop through the result set and add each academic characteristic to the list
+//            while (rs.next()) {
+//                String academicChar = rs.getString("academic_characteristics");
+//                academicCharList.add(academicChar);
+//            }
+//        } catch (SQLException e) {
+//            System.out.println(e.getMessage());
+//        }
+//
+//        //add academic characteristics to student object
+//        student.setAcademicCharsList(academicCharList);
+//
+//        String sql4 = "SELECT * FROM Student_Courses WHERE studentID = ?";
+//        List<List<String>> courseList = new ArrayList<List<String>>();
+//
+//        try {
+//            pstmt = conn.prepareStatement(sql4);
+//            pstmt.setString(1, studentID);
+//            ResultSet rs = pstmt.executeQuery();
+//
+//            // Loop through the result set and add each course to the list
+//            while (rs.next()) {
+//                List<String> course = new ArrayList<String>();
+//                course.add(rs.getString("courses"));
+//                course.add(rs.getString("Grade"));
+//                courseList.add(course);
+//            }
+//        } catch (SQLException e) {
+//            System.out.println(e.getMessage());
+//        }
+//
+//        //add courses to student object
+//        student.setCourseList(courseList);
+
+        return students;
     }
 
     public int getStudentID(Student student){

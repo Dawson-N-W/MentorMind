@@ -7,7 +7,6 @@ import Members.Student;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import login.*;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,6 +14,8 @@ public class Main extends Application{
     public static void main(String[] args) {
 //<<<<<<< HEAD
         //DB.addColumn("Student_Courses", "Grade", "TEXT");
+//    	 Student_Database student_database = Student_Database.getStudent_database();
+//    	 student_database.deleteStudent(3);
         launch(args);
 //=======
 //        /*Student student = new Student();

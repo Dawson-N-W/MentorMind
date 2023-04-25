@@ -48,7 +48,7 @@ public class RecLetter_Database extends DB{
 
     public void replaceLetter(RecLetter letter, int studentID) {
     	String letterText = letter.getText();
-    	String sql = "UPDATE RecLetters SET letter = ? WHERE studentID = ?";
+    	String sql = "UPDATE RecLetters SET recLetter = ? WHERE studentID = ?";
     	try {
     		pstmt = conn.prepareStatement(sql);
     		pstmt.setString(1, letterText);

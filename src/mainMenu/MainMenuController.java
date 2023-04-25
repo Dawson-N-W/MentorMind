@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
-import javafx.beans.value.ObservableValue;
+//import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -28,6 +28,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import recommendation.RecommendationController;
 
 public class MainMenuController implements Initializable{
 
@@ -97,11 +98,7 @@ public class MainMenuController implements Initializable{
     
     private ArrayList<String> finalGrades = new ArrayList<>();
     
-    
-//    private ObservableList<String> coursesObservable;
-//    private ObservableList<String> pCharsObservable;
-//    private ObservableList<String> aCharsObservable;
-    
+    private Student finalStudent = new Student();
     
     /*
      * initializes all of the drop-down menus with the columns
@@ -220,19 +217,37 @@ public class MainMenuController implements Initializable{
 			courseList.add(temp);
 		}
 		
-		Student finalStudent = new Student();
+
+//		System.out.println(genderCombo.getValue());
+//		System.out.println(fName.getText());
+//		System.out.println(lName.getText());
+//		System.out.println(schoolName.getText());
+//		System.out.println(semesters.getSelectionModel().getSelectedItem());
+//		System.out.println(Integer.parseInt(year.getText()));
+//		System.out.println(theDate.format(DateTimeFormatter.ofPattern("MMM-dd-yyyy")));
+//		System.out.println(personalChars.getSelectionModel().getSelectedItems());
+//		System.out.println(academicChars.getSelectionModel().getSelectedItems());
+//		System.out.println(courseList);
+		
 		finalStudent.setGender(genderCombo.getValue());
 		finalStudent.setFirstName(fName.getText());
 		finalStudent.setLastName(lName.getText());
 		finalStudent.setSchool(schoolName.getText());
 		finalStudent.setSemester(semesters.getSelectionModel().getSelectedItem());
 		finalStudent.setSemYear(Integer.parseInt(year.getText()));
+		finalStudent.setProgram(programs.getSelectionModel().getSelectedItem());
 		finalStudent.setDate(theDate.format(DateTimeFormatter.ofPattern("MMM-dd-yyyy")));
 		finalStudent.setPersonalCharsList(personalChars.getSelectionModel().getSelectedItems());
 		finalStudent.setAcademicCharsList(academicChars.getSelectionModel().getSelectedItems());
 		finalStudent.setCourseList(courseList);
 		
 		sd.insert(finalStudent);
+		
+		Stage stage = (Stage)this.compile.getScene().getWindow();
+		stage.close();
+		recLStage();
+		
+		
 //		String gender = genderCombo.getValue();
 //		String firstN = fName.getText();
 //		String lastN = lName.getText();
@@ -289,6 +304,26 @@ public class MainMenuController implements Initializable{
 			Scene scene = new Scene(root);
 			signUpStage.setScene(scene);
 			signUpStage.setTitle("Reset Password");
+			signUpStage.setResizable(false);
+			signUpStage.show();
+			} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public void recLStage() {
+
+		try {
+			Stage signUpStage = new Stage();
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/recommendation/RecommendationFXML.fxml"));
+			
+			RecommendationController rc = new RecommendationController(finalStudent);
+			loader.setController(rc);
+
+			AnchorPane root = loader.load();
+			Scene scene = new Scene(root);
+			signUpStage.setScene(scene);
 			signUpStage.setResizable(false);
 			signUpStage.show();
 			} catch (IOException e) {

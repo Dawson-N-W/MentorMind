@@ -127,7 +127,7 @@ public class InitialLoginController{
 	public void mainMenu() {
 		try {
 			Stage signUpStage = new Stage();
-			AnchorPane root = (AnchorPane)FXMLLoader.load(getClass().getResource("/mainMenu/MainMenuFXML.fxml"));
+			AnchorPane root = (AnchorPane)FXMLLoader.load(getClass().getResource("/search/SearchFXML.fxml"));
 			
 
 			Scene scene = new Scene(root);
