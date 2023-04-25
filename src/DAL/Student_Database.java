@@ -216,4 +216,22 @@ public class Student_Database extends DB{
 
         return student;
     }
+
+    public int getStudentID(Student student){
+        String firstName = student.getFirstName();
+        String lastName = student.getLastName();
+        String sql = "SELECT * FROM students WHERE firstName = ? AND lastName = ?";
+        String studentID = "";
+        try{
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, firstName);
+            pstmt.setString(2, lastName);
+            ResultSet rs = pstmt.executeQuery();
+            studentID = String.valueOf(rs.getInt("id"));
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return Integer.parseInt(studentID);
+    }
 }
