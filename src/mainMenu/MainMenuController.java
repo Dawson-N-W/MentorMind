@@ -1,6 +1,8 @@
 package mainMenu;
 
 import DAL.Professor_Database;
+import Members.Student;
+import DAL.Student_Database;
 
 import java.io.IOException;
 import java.net.URL;
@@ -19,6 +21,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TextField;
@@ -70,8 +73,13 @@ public class MainMenuController implements Initializable{
     @FXML
     private Button resetP;
     
+    @FXML private Button compile;
+    
+    @FXML private Label errorLabel;
+    
     
     private Professor_Database pd = Professor_Database.getProfessor_database();
+    private Student_Database sd = Student_Database.getStudent_database();
     
     // Set of lists where the column data will be stored
     
@@ -87,10 +95,12 @@ public class MainMenuController implements Initializable{
     
     private List<TextField> grades = new ArrayList<>();
     
+    private ArrayList<String> finalGrades = new ArrayList<>();
     
-    private ObservableList<String> coursesObservable;
-    private ObservableList<String> pCharsObservable;
-    private ObservableList<String> aCharsObservable;
+    
+//    private ObservableList<String> coursesObservable;
+//    private ObservableList<String> pCharsObservable;
+//    private ObservableList<String> aCharsObservable;
     
     
     /*
@@ -148,24 +158,30 @@ public class MainMenuController implements Initializable{
 		
 		if(fName.getText().trim().isEmpty() || lName.getText().trim().isEmpty()) {
 			//
+			errorLabel.setText("First Name or Last Name has not been filled");
 		}
 		else if(schoolName.getText().trim().isEmpty() || year.getText().trim().isEmpty()) {
-			
+			errorLabel.setText("School Name or Year attended has been left blank");
 		}
 		else if(theDate == null){
 			//label
+			errorLabel.setText("Please enter in a Date");
 		}
 		else if(genderCombo.getSelectionModel().isEmpty()) {
 			//have a label print something out to the screen
+			errorLabel.setText("Please select a gender");
 		}
 		else if(programs.getSelectionModel().isEmpty()) {
 			//have the label print something
+			errorLabel.setText("Please select at least one program");
 		}
 		else if(semesters.getSelectionModel().isEmpty() || courses.getSelectionModel().isEmpty()){
 			//label
+			errorLabel.setText("Either the semester attended or courses has been left blank");
 		}
 		else if(personalChars.getSelectionModel().isEmpty() || academicChars.getSelectionModel().isEmpty()) {
 			//label
+			errorLabel.setText("Either Personal or Academic characteristics has been left blank");
 		}
 		else {
 			ObservableList<Integer> courseIndices = courses.getSelectionModel().getSelectedIndices();
@@ -173,7 +189,10 @@ public class MainMenuController implements Initializable{
 			for(int i = 0; i < courseIndices.size(); i++) {
 				if(grades.get(courseIndices.get(i)).getText().trim().isEmpty()) {
 					//label
+					errorLabel.setText("Course Grades have not been entered or do not match");
 					lastCheck = false;
+				}else {
+					finalGrades.add(grades.get(courseIndices.get(i)).getText());
 				}
 			}
 			if(lastCheck) {
@@ -189,17 +208,41 @@ public class MainMenuController implements Initializable{
 	 */
 	
 	private void createStudent(LocalDate theDate) {
-		String gender = genderCombo.getValue();
-		String firstN = fName.getText();
-		String lastN = lName.getText();
-		String schoolN = schoolName.getText();
-		String yearsFinal = year.getText();
-		String dateFinal = theDate.format(DateTimeFormatter.ofPattern("MMM-dd-yyyy"));
-		String programFinal = programs.getSelectionModel().getSelectedItem();
-		String semesterFinal = semesters.getSelectionModel().getSelectedItem();
+		
+		List<String> coursesFinal = courses.getSelectionModel().getSelectedItems();
+		
+		List<List<String>> courseList = new ArrayList<>();
+		
+		for(int i = 0; i < coursesFinal.size(); i++) {
+			ArrayList<String> temp = new ArrayList<>();
+			temp.add(coursesFinal.get(i));
+			temp.add(finalGrades.get(i));
+			courseList.add(temp);
+		}
+		
+		Student finalStudent = new Student();
+		finalStudent.setGender(genderCombo.getValue());
+		finalStudent.setFirstName(fName.getText());
+		finalStudent.setLastName(lName.getText());
+		finalStudent.setSchool(schoolName.getText());
+		finalStudent.setSemester(semesters.getSelectionModel().getSelectedItem());
+		finalStudent.setSemYear(Integer.parseInt(year.getText()));
+		finalStudent.setDate(theDate.format(DateTimeFormatter.ofPattern("MMM-dd-yyyy")));
+		finalStudent.setPersonalCharsList(personalChars.getSelectionModel().getSelectedItems());
+		finalStudent.setAcademicCharsList(academicChars.getSelectionModel().getSelectedItems());
+		finalStudent.setCourseList(courseList);
+		
+		sd.insert(finalStudent);
+//		String gender = genderCombo.getValue();
+//		String firstN = fName.getText();
+//		String lastN = lName.getText();
+//		String schoolN = schoolName.getText();
+//		String yearsFinal = year.getText();
+//		String dateFinal = theDate.format(DateTimeFormatter.ofPattern("MMM-dd-yyyy"));
+//		String programFinal = programs.getSelectionModel().getSelectedItem();
+//		String semesterFinal = semesters.getSelectionModel().getSelectedItem();
 
-		coursesObservable = courses.getSelectionModel().getSelectedItems();
-		pCharsObservable = personalChars.getSelectionModel().getSelectedItems();
+		
 	}
 	
 	/*
