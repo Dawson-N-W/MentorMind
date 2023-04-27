@@ -15,7 +15,7 @@
    <children>
       <ImageView fitHeight="564.0" fitWidth="597.0" layoutX="-147.0" layoutY="32.0" opacity="0.44">
          <image>
-            <Image url="@../../Resources/Images/undraw_fill_form_re_cwyf.png" />
+            <Image url="@../Resources/Images/undraw_fill_form_re_cwyf.png" />
          </image>
       </ImageView>
       <Separator layoutX="430.0" layoutY="19.0" orientation="VERTICAL" prefHeight="578.0" prefWidth="50.0">
@@ -25,7 +25,7 @@
       </Separator>
       <ImageView fitHeight="564.0" fitWidth="497.0" layoutX="455.0" layoutY="32.0" opacity="0.44">
          <image>
-            <Image url="@../../Resources/Images/undraw_Forms_re_pkrt.png" />
+            <Image url="@../Resources/Images/undraw_Forms_re_pkrt.png" />
          </image>
       </ImageView>
       <TextField layoutX="14.0" layoutY="87.0" prefHeight="27.0" prefWidth="151.0" promptText="First Name" />

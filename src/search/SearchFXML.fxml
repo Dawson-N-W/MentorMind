@@ -13,7 +13,7 @@
    <children>
       <ImageView fitHeight="700.0" fitWidth="781.0" layoutX="16.0" layoutY="-83.0">
          <image>
-            <Image url="@../../Resources/Images/undraw_Location_search_re_ttoj.png" />
+            <Image url="@../Resources/Images/undraw_Location_search_re_ttoj.png" />
          </image>
       </ImageView>
       <TextField fx:id="searchField" layoutX="90.0" layoutY="74.0" prefHeight="27.0" prefWidth="254.0" promptText="Enter Student..." />
