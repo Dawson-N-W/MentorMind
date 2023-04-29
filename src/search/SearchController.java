@@ -93,7 +93,6 @@ public class SearchController {
 				promptLabel.setText("Selected student currently does not have a letter");
 			}
 			else {
-
 				Stage stage = (Stage)opener.getScene().getWindow();
 				stage.close();
 				recLStage();

@@ -72,7 +72,6 @@ public class RecommendationController implements Initializable{
 		stage.close();
 		studentForm();
 	}
-	
 	/*
 	 * Button functionality that takes the user back to the login page
 	 */

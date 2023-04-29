@@ -59,6 +59,7 @@ public class RecLetter_Database extends DB{
     	}
     }
     
+    
     public boolean checkLetter(int studentID) {
     	int count = 0;
     	String sql = "SELECT COUNT(*) FROM RecLetters WHERE studentID = ?";
@@ -68,7 +69,6 @@ public class RecLetter_Database extends DB{
     		ResultSet rs = pstmt.executeQuery();
     		rs.next();
     		count = rs.getInt(1);
-    		//return rs.getString("recLetter");
     	} catch (SQLException e) {
     		System.out.println(e.getMessage());
     	}
