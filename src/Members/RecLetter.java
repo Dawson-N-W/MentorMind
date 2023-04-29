@@ -34,6 +34,13 @@ public class RecLetter {
 
         List<String> profData = getProfessorData();
 
+        String pronoun;
+
+        if(gender.equals("Male"))
+            	pronoun = "He";
+            else
+            	pronoun = "She";
+
         sb.append("Letter of Recommendation\n\n");
         sb.append(String.format("For: %s %s\n", firstName, lastName));
         sb.append(dateString).append("\n\n");
@@ -43,28 +50,35 @@ public class RecLetter {
         sb.append(String.format("I met %s in %s %s when they enrolled in my %s course. \n", firstName, semester, semYear, courseNames.get(0)));
         sb.append(String.format("%s earned a %s from this tough course and shows how knowledgeable and harder worker they are. \n", firstName, grades.get(0)));
         if(courseNames.size() > 1 && grades.size() > 1)
-            sb.append(String.format("%s also earned %s from my %s course. \n", gender, grades.get(1), courseNames.get(1)));
+            sb.append(String.format("%s also earned a %s from my %s course. \n", pronoun, grades.get(1), courseNames.get(1)));
         sb.append(String.format(firstName));
         for(int i = 0; i < academicChars.size(); i++){
             if(i == academicChars.size() - 1)
-                sb.append(String.format(" and %s. \n", academicChars.get(i)));
+                sb.append(String.format(" and %s. \n", academicChars.get(i).toLowerCase()));
+            else if(i != 0)
+                sb.append(String.format(", %s", academicChars.get(i).toLowerCase()));
             else
-                sb.append(String.format(", %s", academicChars.get(i)));
+                sb.append(String.format(" is %s", academicChars.get(i).toLowerCase()));
         }
 
-        sb.append(String.format(gender));
-        for(int i = 0; i < personalChars.size(); i++){
-            if(i == personalChars.size() - 1)
-                sb.append(String.format(" and %s. \n", personalChars.get(i)));
-            else
-                sb.append(String.format(", %s", personalChars.get(i)));
+        sb.append(String.format(pronoun)).append(" is ");
+        if(personalChars.size() == 2){
+            sb.append(String.format("%s and %s. \n", personalChars.get(0).toLowerCase(), personalChars.get(1).toLowerCase()));
+        }
+        else {
+            for (int i = 0; i < personalChars.size(); i++) {
+                if (i == personalChars.size() - 1)
+                    sb.append(String.format(" and %s. \n", personalChars.get(i).toLowerCase()));
+                else
+                    sb.append(String.format(", %s", personalChars.get(i).toLowerCase()));
+            }
         }
 
-        sb.append(String.format("Furthermore, I noticed from the term project result, %s developed" +
-                "leadership, time management, and problem-solving skills. %s worked effectively with the team member and delegated tasks" +
-                "appropriately. They were able to deliver a successful project in a timely fashion. \n", gender, gender.substring(0, 1).toUpperCase() + gender.substring(1)));
+        sb.append(String.format("Furthermore, I noticed from the term project result, %s developed " +
+                "leadership, time management, and problem-solving skills. %s worked effectively with the team member and delegated tasks " +
+                "appropriately. They were able to deliver a successful project in a timely fashion. \n", pronoun.toLowerCase(), pronoun.substring(0, 1).toUpperCase() + pronoun.substring(1)));
 
-        sb.append(String.format("I believe that %s has the capacity to excel at higher education program and this is my pleasure to highly recommend %s. \n", firstName, gender));
+        sb.append(String.format("I believe that %s has the capacity to excel at higher education program and this is my pleasure to highly recommend %s. \n", firstName, pronoun.toLowerCase().equals("he") ? "him" : "her"));
 
         sb.append("Please do not hesitate to contact me with further questions. \n\n");
 
