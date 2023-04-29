@@ -76,6 +76,9 @@ public class SearchController {
 		}
 		else {
 			chosenSetter();
+			if(rd.checkLetter(sd.getStudentID(chosenOne))) {
+				rd.deleteLetter(sd.getStudentID(chosenOne));
+			}
 			Stage stage = (Stage)recLButton.getScene().getWindow();
 			stage.close();
 			recLStage();
