@@ -42,8 +42,10 @@ public class RecommendationController implements Initializable{
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 
-		rc.compile(recStudent);
-		rd.addLetter(rc, sd.getStudentID(recStudent));
+		if(rd.checkLetter(sd.getStudentID(recStudent)) == false) {
+			rc.compile(recStudent);
+			rd.addLetter(rc, sd.getStudentID(recStudent));
+		}
 		
 		recLetter.setText(rd.getLetter(sd.getStudentID(recStudent)));
 	}
@@ -61,7 +63,8 @@ public class RecommendationController implements Initializable{
 	}
 	
 	@FXML public void deleteStudent() {
-		
+		rd.deleteLetter(sd.getStudentID(recStudent));
+		searchPage();
 	}
 	
 	@FXML public void updateStudent() {

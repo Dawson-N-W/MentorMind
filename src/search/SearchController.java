@@ -1,6 +1,7 @@
 package search;
 
 import DAL.Student_Database;
+import DAL.RecLetter_Database;
 import Members.Student;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -27,11 +28,13 @@ public class SearchController {
 	@FXML private Button newStudentButton;
 	@FXML private Button findButton;
 	@FXML private Button detailsButton;
+	@FXML private Button opener;
 	@FXML private ListView<String> studentList;
 	private List<Student> students = new ArrayList<>();
 	private Student chosenOne = new Student();
 	
 	private Student_Database sd = Student_Database.getStudent_database();
+	private RecLetter_Database rd = RecLetter_Database.getRecLetter_database();
 	
 	
 	@FXML public void search() {
@@ -78,6 +81,24 @@ public class SearchController {
 			recLStage();
 		}
 
+	}
+	
+	@FXML public void recLComfirm() {
+		if(studentList.getSelectionModel().isEmpty()) {
+			promptLabel.setText("Please select a student");
+		}
+		else {
+			chosenSetter();
+			if(rd.checkLetter(sd.getStudentID(chosenOne)) == false) {
+				promptLabel.setText("Selected student currently does not have a letter");
+			}
+			else {
+
+				Stage stage = (Stage)opener.getScene().getWindow();
+				stage.close();
+				recLStage();
+			}
+		}
 	}
 	
 	/*
