@@ -37,6 +37,11 @@ public class SearchController {
 	private RecLetter_Database rd = RecLetter_Database.getRecLetter_database();
 	
 	
+	/**
+	 * Obtains the data entered into the search bar,
+	 * queries the database and returns all the potential students matching the 
+	 * search parameters and displays them
+	 */
 	@FXML public void search() {
 		if(searchField.getText().trim().isEmpty() == false) {
 			studentList.getItems().clear();
@@ -60,6 +65,7 @@ public class SearchController {
 		logoutStage();
 	}
 	
+	// Compares the list of possible students and locates the selected student
 	private void chosenSetter() {
 		String temp = studentList.getSelectionModel().getSelectedItem();
 		for(Student s: students) {
@@ -70,6 +76,12 @@ public class SearchController {
 		}
 	}
 	
+	/*
+	 * Ensures that the student variable isn't empty and then
+	 * closes the current stage in order to transition over to the
+	 * recommendation page whilst also deleting the current recommendation letter if the
+	 * selected Student possesses one
+	 */
 	@FXML public void recLetter() {
 		if(studentList.getSelectionModel().isEmpty()) {
 			promptLabel.setText("Please select a student");
@@ -85,7 +97,12 @@ public class SearchController {
 		}
 
 	}
-	
+	/*
+	 * Ensures that the student variable isn't empty and then
+	 * closes the current stage in order to transition over to the
+	 * recommendation page for students who already possess a recommendation letter
+	 * Otherwise we notify the user that the selected student doesn't have a letter saved 
+	 */
 	@FXML public void recLComfirm() {
 		if(studentList.getSelectionModel().isEmpty()) {
 			promptLabel.setText("Please select a student");
@@ -114,12 +131,19 @@ public class SearchController {
 		resetPStage();
 	}
 	
+	/**
+	 * Closes the current window, redirecting the user to a blank Student form
+	 */
 	@FXML public void newStudent() {
 		Stage stage = (Stage)this.newStudentButton.getScene().getWindow();
 		stage.close();
 		studentForm();
 	}
 	
+	/**
+	 * Checks that the student object isn't empty and if it isn't, closes
+	 * the current window, redirecting the user to the Student form
+	 */
 	@FXML public void updateStudent() {
 		if(studentList.getSelectionModel().isEmpty()) {
 			promptLabel.setText("Please select a student");
@@ -134,6 +158,9 @@ public class SearchController {
 
 	}
 	
+	/*
+	 * Opens up the new stage for the Login page
+	 */
 	public void logoutStage() {
 		try {
 			Stage signUpStage = new Stage();
@@ -161,8 +188,6 @@ public class SearchController {
 			//FXMLLoader loader = new FXMLLoader();
 			AnchorPane root = (AnchorPane)FXMLLoader.load(getClass().getResource("/resetPass/resetPassFXML.fxml"));
 			
-			//InitialLoginController initC = (InitialLoginController)loader.getController();
-			
 			Scene scene = new Scene(root);
 			signUpStage.setScene(scene);
 			signUpStage.setTitle("Reset Password");
@@ -174,6 +199,9 @@ public class SearchController {
 		}
 	}
 	
+	/**
+	 * Opens up the new stage for a blank student form page
+	 */
 	private void studentForm() {
 		try {
 			Stage signUpStage = new Stage();
@@ -192,6 +220,11 @@ public class SearchController {
 		e.printStackTrace();
 	}
 }
+	/**
+	 * Opens up the new stage for the student form page
+	 * passing in the new student in the process in order to populate
+	 * the form
+	 */
 	
 	private void updateStudentForm() {
 		try {
@@ -212,6 +245,11 @@ public class SearchController {
 	}
 }
 	
+	/**
+	 * Opens up the new stage for the recommendation page
+	 * passing in the new student in the process in order to compile the 
+	 * recommendation letter
+	 */
 	public void recLStage() {
 
 		try {

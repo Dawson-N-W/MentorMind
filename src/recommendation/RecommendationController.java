@@ -35,10 +35,16 @@ public class RecommendationController implements Initializable{
 		
 	}
 	
+//	 Constructor allows for students to be passed into instances of the recommendation
+//	 controller
 	public RecommendationController(Student recStudent) {
 		this.recStudent = recStudent;
 	}
 	
+	/**
+	 * The text area is initialized with the recommendation letter for 
+	 * the selected student
+	 */
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 
@@ -50,23 +56,39 @@ public class RecommendationController implements Initializable{
 		recLetter.setText(rd.getLetter(sd.getStudentID(recStudent)));
 	}
 	
+	/**
+	 * Closes recommendation back and sends user back to the 
+	 * search page without saving any changes to the form
+	 */
 	@FXML public void searchPage() {
 		Stage stage = (Stage)searchButton.getScene().getWindow();
 		stage.close();
 		searchStage();
 	}
 	
+	/*
+	 * Updates student's recommendation form with the changes manually added
+	 * by the user
+	 */
 	@FXML public void saveChanges() {
 		rc.updateText(recLetter.getText());
 		
 		rd.replaceLetter(rc, sd.getStudentID(recStudent));
 	}
 	
+	/*
+	 * removes the student's recommendation letter from the database, closes
+	 * the current stage and takes the user over to the search page
+	 */
 	@FXML public void deleteStudent() {
 		rd.deleteLetter(sd.getStudentID(recStudent));
 		searchPage();
 	}
 	
+	/**
+	 * This closes the current stage and opens up the form of the current
+	 * student for editing
+	 */
 	@FXML public void updateStudent() {
 		Stage stage = (Stage)detailsButton.getScene().getWindow();
 		stage.close();
@@ -93,11 +115,13 @@ public class RecommendationController implements Initializable{
 		resetPStage();
 	}
 	
+	/**
+	 * Opens up the new stage for the provided student's form
+	 */
 	private void studentForm() {
 		try {
 			Stage signUpStage = new Stage();
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/mainMenu/MainMenuFXML.fxml"));
-			//AnchorPane root = (AnchorPane)FXMLLoader.load(getClass().getResource("/mainMenu/MainMenuFXML.fxml"));
 			
 			MainMenuController mc = new MainMenuController(recStudent);
 			loader.setController(mc);
@@ -111,7 +135,9 @@ public class RecommendationController implements Initializable{
 		e.printStackTrace();
 	}
 }
-	
+	/**
+	 * Opens up the new stage for the search page
+	 */
 	private void searchStage() {
 		try {
 			Stage signUpStage = new Stage();
@@ -126,7 +152,9 @@ public class RecommendationController implements Initializable{
 			e.printStackTrace();
 		}
 	}
-	
+	/**
+	 * Opens up the new stage for the login page
+	 */
 	private void logoutStage() {
 		try {
 			Stage signUpStage = new Stage();

@@ -59,7 +59,12 @@ public class RecLetter_Database extends DB{
     	}
     }
     
-    
+    /**
+     * checks that the student possessing the provided ID has letter currently stored
+     * in the database
+     * @param studentID
+     * @return
+     */
     public boolean checkLetter(int studentID) {
     	int count = 0;
     	String sql = "SELECT COUNT(*) FROM RecLetters WHERE studentID = ?";

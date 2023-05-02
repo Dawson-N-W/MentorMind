@@ -147,6 +147,10 @@ public class MainMenuController implements Initializable{
 		academicChars.getItems().addAll(acL);
 		academicChars.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 		
+		/**
+		 * populates the student form if a student is passed into the provided instance
+		 * of the controller using a boolean check
+		 */
 		if(currStudent) {
 			titleLabel.setText("Update Student Details");
 			fName.setText(initialStudent.getFirstName());
@@ -212,14 +216,12 @@ public class MainMenuController implements Initializable{
 		 LocalDate theDate = schoolDate.getValue();
 		
 		if(fName.getText().trim().isEmpty() || lName.getText().trim().isEmpty()) {
-			//
 			errorLabel.setText("First Name or Last Name has not been filled");
 		}
 		else if(schoolName.getText().trim().isEmpty() || year.getText().trim().isEmpty()) {
 			errorLabel.setText("School Name or Year attended has been left blank");
 		}
 		else if(theDate == null){
-			//label
 			errorLabel.setText("Please enter in a Date");
 		}
 		else if(genderCombo.getSelectionModel().isEmpty()) {
@@ -259,7 +261,8 @@ public class MainMenuController implements Initializable{
 	}
 	
 	/*
-	 * Creates student object and transitions to new recommendation letter
+	 * Creates student object with user info
+	 * and transitions to new recommendation letter
 	 */
 	
 	private void createStudent(LocalDate theDate) {
@@ -275,17 +278,6 @@ public class MainMenuController implements Initializable{
 			courseList.add(temp);
 		}
 		
-
-//		System.out.println(genderCombo.getValue());
-//		System.out.println(fName.getText());
-//		System.out.println(lName.getText());
-//		System.out.println(schoolName.getText());
-//		System.out.println(semesters.getSelectionModel().getSelectedItem());
-//		System.out.println(Integer.parseInt(year.getText()));
-//		System.out.println(theDate.format(DateTimeFormatter.ofPattern("MMM-dd-yyyy")));
-//		System.out.println(personalChars.getSelectionModel().getSelectedItems());
-//		System.out.println(academicChars.getSelectionModel().getSelectedItems());
-//		System.out.println(courseList);
 		
 		finalStudent.setGender(genderCombo.getValue());
 		finalStudent.setFirstName(fName.getText());
@@ -300,7 +292,6 @@ public class MainMenuController implements Initializable{
 		finalStudent.setCourseList(courseList);
 		
 		if(currStudent) {
-			//finalStudent = initialStudent;
 			sd.deleteStudent(sd.getStudentID(initialStudent));
 		}
 
@@ -309,17 +300,6 @@ public class MainMenuController implements Initializable{
 		Stage stage = (Stage)this.compile.getScene().getWindow();
 		stage.close();
 		recLStage();
-		
-		
-//		String gender = genderCombo.getValue();
-//		String firstN = fName.getText();
-//		String lastN = lName.getText();
-//		String schoolN = schoolName.getText();
-//		String yearsFinal = year.getText();
-//		String dateFinal = theDate.format(DateTimeFormatter.ofPattern("MMM-dd-yyyy"));
-//		String programFinal = programs.getSelectionModel().getSelectedItem();
-//		String semesterFinal = semesters.getSelectionModel().getSelectedItem();
-
 		
 	}
 	
@@ -359,10 +339,7 @@ public class MainMenuController implements Initializable{
 
 		try {
 			Stage signUpStage = new Stage();
-			//FXMLLoader loader = new FXMLLoader();
 			AnchorPane root = (AnchorPane)FXMLLoader.load(getClass().getResource("/resetPass/resetPassFXML.fxml"));
-			
-			//InitialLoginController initC = (InitialLoginController)loader.getController();
 			
 			Scene scene = new Scene(root);
 			signUpStage.setScene(scene);
@@ -375,6 +352,9 @@ public class MainMenuController implements Initializable{
 		}
 	}
 	
+	/**
+	 * Opens up the new stage for the search page
+	 */
 	private void searchStage() {
 		try {
 			Stage signUpStage = new Stage();
@@ -389,7 +369,11 @@ public class MainMenuController implements Initializable{
 			e.printStackTrace();
 		}
 	}
-	
+	/**
+	 * Opens up the new stage for the recommendation page
+	 * passing in the new student in the process in order to compile the 
+	 * recommendation letter
+	 */
 	public void recLStage() {
 
 		try {
