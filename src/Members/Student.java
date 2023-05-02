@@ -2,6 +2,10 @@ package Members;
 
 import java.util.List;
 
+/**
+ * This class is used to create a student
+ * It contains methods to set the student's attributes
+ */
 public class Student {
     private String firstName = null;
     private String lastName = null;

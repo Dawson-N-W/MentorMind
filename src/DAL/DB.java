@@ -2,15 +2,18 @@ package DAL;
 
 import java.sql.*;
 
-
+/*
+Main driver class for each database.
+Database classes inherit from this parent class in order to make connections to database
+ */
 public class DB {
     private static final String url = "jdbc:sqlite:database.db";
 
     protected static final Connection conn = connect();
-    //data access layer
-    //access to db
-    //create, read, update, delete
 
+    /*
+    Creates a table in a database corresponding to the tableName String
+     */
     public static void createTable(String tableName){
 
         // SQL statement for creating a new table
@@ -29,7 +32,9 @@ public class DB {
         }
 
     }
-
+    /*
+    Drops a table in a database corresponding to the tableName String and the name of the column to be dropped
+     */
     public static void alterTable(String tableName, String columnName){
     	String sql = "ALTER TABLE " + tableName + " DROP COLUMN " + columnName;
     	try{
@@ -40,7 +45,10 @@ public class DB {
             System.out.println(e.getMessage());
         }
     }
-
+    /*
+    Adds a column to a table in a database corresponding to the tableName String,
+    the name of the column to be added, and the type of the column
+     */
     public static void addColumn(String tableName, String columnName, String type){
     	String sql = "ALTER TABLE " + tableName + " ADD COLUMN " + columnName + " " + type;
     	try{
@@ -51,7 +59,9 @@ public class DB {
             System.out.println(e.getMessage());
         }
     }
-
+    /*
+    Drops a table in a database corresponding to the tableName String
+     */
     public static void deleteTable(String tableName){
         String sql = "DROP TABLE " + tableName;
         try{
@@ -62,7 +72,9 @@ public class DB {
             System.out.println(e.getMessage());
         }
     }
-
+    /*
+    Connects to the database
+     */
     protected static Connection connect() {
         Connection conn = null;
         try {
@@ -74,7 +86,4 @@ public class DB {
         }
         return conn;
     }
-
-    //public abstract void insert(String password);
-    //public abstract void delete(int id);
 }

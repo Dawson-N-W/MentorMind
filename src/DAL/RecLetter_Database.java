@@ -6,6 +6,14 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.ResultSet;
 
+/**
+ * This class is used to access the RecLetters table in the database
+ * It contains methods to insert, delete, and update the RecLetters table
+ * It is a singleton class
+ * It extends the DB class
+ * It is used by the RecLetter class
+ * It is used in the RecLetterController class
+ */
 public class RecLetter_Database extends DB{
     private final String tableName = "RecLetters";
     private final Connection conn;
@@ -22,6 +30,11 @@ public class RecLetter_Database extends DB{
         conn = DB.conn;
     }
 
+    /**
+     * adds the provided letter to the database for the student possessing the provided ID
+     * @param letter
+     * @param studentID
+     */
     public void addLetter(RecLetter letter, int studentID) {
         String letterText = letter.getText();
     	String sql = "INSERT INTO RecLetters(recLetter, studentID) VALUES(?,?)";
@@ -35,6 +48,10 @@ public class RecLetter_Database extends DB{
         }
     }
 
+    /**
+     * deletes the letter currently stored in the database for the student possessing the provided ID
+     * @param studentID
+     */
     public void deleteLetter(int studentID) {
         String sql = "DELETE FROM RecLetters WHERE studentID = ?";
         try{
@@ -46,6 +63,11 @@ public class RecLetter_Database extends DB{
         }
     }
 
+    /**
+     * replaces the letter currently stored in the database with the provided letter
+     * @param letter
+     * @param studentID
+     */
     public void replaceLetter(RecLetter letter, int studentID) {
     	String letterText = letter.getText();
     	String sql = "UPDATE RecLetters SET recLetter = ? WHERE studentID = ?";
@@ -84,6 +106,11 @@ public class RecLetter_Database extends DB{
     	return false;
     }
 
+    /**
+     * returns the letter currently stored in the database for the student possessing the provided ID
+     * @param studentID
+     * @return letter
+     */
     public String getLetter(int studentID) {
     	String sql = "SELECT recLetter FROM RecLetters WHERE studentID = ?";
     	try {

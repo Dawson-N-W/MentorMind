@@ -7,7 +7,17 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 
-
+/**
+    * This class is used to access the login table in the database
+    * It contains methods to insert, delete, and update the login table
+    * It also contains a method to check if the password entered by the user matches the password in the database
+    * It is a singleton class
+    * It extends the DB class
+    * It is used by the Login class
+    * It is used in the InitialLoginController class
+    * It is used in the SignUpController class
+    * It is used in the ResetPasswordController class
+ */
 public class Login_Database extends DB {
     private final String tableName = "login";
     private final Connection conn;
@@ -25,7 +35,10 @@ public class Login_Database extends DB {
 
     }
 
-    //insert method
+    /**
+        * Inserts a password into the login table
+     * @param password the password to be inserted
+     */
     public void insert(String password) {
         String sql = "INSERT INTO login(password) VALUES(?)";
         try{
@@ -37,7 +50,10 @@ public class Login_Database extends DB {
         }
     }
 
-    //delete account
+    /**
+        * Deletes a password from the login table
+     * @param id the id of the password to be deleted
+     */
     public void delete(int id) {
         String sql = "DELETE FROM login WHERE id = ?";
         try{
@@ -48,7 +64,10 @@ public class Login_Database extends DB {
             System.out.println(e.getMessage());
         }
     }
-    //returns -1 if login failed, otherwise returns id
+    /**
+        * Checks if the password entered by the user matches the password in the database
+     * @param pass the password entered by the user
+     */
     public boolean isLogin(String pass) throws Exception{
     	
     	PreparedStatement pr = null;
@@ -71,7 +90,12 @@ public class Login_Database extends DB {
     	
     }
 
-    //change password
+    /**
+        * Updates a password in the login table
+        * The old password is replaced with the new password
+     * @param newPassword the new password
+     * @param oldP the old password
+     */
     public void updatePassword(String newPassword, String oldP){
         String sql = "UPDATE login SET password = '" + newPassword + "' WHERE password = '" + oldP + "'";
         try{
@@ -83,7 +107,7 @@ public class Login_Database extends DB {
     }
     
 
-    /*
+    /**
      * Checks if there exists data in the password column of the login table
      * returns true if there is, else false.
      */

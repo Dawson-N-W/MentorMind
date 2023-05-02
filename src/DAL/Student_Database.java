@@ -10,6 +10,15 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This class is used to access the database for the Student class
+ * It contains methods to insert, delete, and update the Student table
+ * It is a singleton class
+ * It extends the DB class
+ * It is used by the Student class
+ * It is used in the StudentController class
+ * It is used in the StudentListController class
+ */
 public class Student_Database extends DB{
     private final String tableName = "students";
     private final Connection conn;
@@ -26,6 +35,10 @@ public class Student_Database extends DB{
         conn = DB.conn;
     }
 
+    /**
+     * inserts the provided student into the database
+     * @param student is a Student object
+     */
     public void insert(Student student) {
         String firstName = student.getFirstName();
         String lastName = student.getLastName();
@@ -93,6 +106,11 @@ public class Student_Database extends DB{
 
 
     }
+
+    /**
+     * updates the provided student in the database
+     * @param id is the id of the student to be updated
+     */
     public void deleteStudent(int id) {
         String sql = "DELETE FROM students WHERE id = ?";
         try{
@@ -124,8 +142,12 @@ public class Student_Database extends DB{
             System.out.println(e.getMessage());
         }
     }
-    
-    //returns lists of studentIDs after search
+
+    /**
+     * Searches for a student via last name, first name, or semester year
+     * @param val is the value to be searched for
+     * @return a list of student ids that match the search
+     */
     public List<Integer> searchID(String val){
     	String sql = "SELECT * FROM students WHERE ? IN (firstName, lastName, semYear)";
     	ArrayList<Integer> studentID = new ArrayList<>();
@@ -144,8 +166,12 @@ public class Student_Database extends DB{
     	return studentID;
     }
 
-    //search for a student via last name
 
+    /**
+     * Searches for a student via last name, first name, or semester year
+     * @param val is the value to be searched for
+     * @return a list of students that match the search
+     */
     public List<Student> searchStudent(String val) {
     	List<Integer> studentIDs = searchID(val);
     	List<Student> students = new ArrayList<>();
@@ -250,6 +276,11 @@ public class Student_Database extends DB{
         return students;
     }
 
+    /**
+     * Gets the student id of a student
+     * @param student is the student whose id is being searched for
+     * @return the student id
+     */
     public int getStudentID(Student student){
         String firstName = student.getFirstName();
         String lastName = student.getLastName();

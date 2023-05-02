@@ -5,6 +5,10 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This class is used to create a letter of recommendation for a student
+ * It contains methods to compile the letter and send it to the database
+ */
 public class RecLetter {
     private StringBuilder sb;
 
@@ -15,6 +19,11 @@ public class RecLetter {
         sb = new StringBuilder();
     }
 
+    /**
+     * Compiles the letter of recommendation for the provided student
+     * Uses a template to create the letter with a StringBuilder
+     * @param student the student for whom the letter is being written
+     */
     public void compile(Student student){
         String firstName = student.getFirstName();
         String lastName = student.getLastName();
@@ -98,16 +107,27 @@ public class RecLetter {
 
     }
 
+    /**
+     * Updates the text of the letter
+     * @param text the new text to be used
+     */
     public void updateText(String text){
         sb = new StringBuilder(text);
     }
 
-    //get professor data from professor database
+    /**
+     * Gets the data for the professor who is writing the letter
+     * @return a list of strings containing the professor's data
+     */
     private List<String> getProfessorData(){
         Professor_Database db = Professor_Database.getProfessor_database();
         return db.getProfData(1);
     }
 
+    /**
+     * Gets the text of the letter
+     * @return the text of the letter
+     */
     public String getText(){
         return sb.toString();
     }

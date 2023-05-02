@@ -6,7 +6,21 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
+/**
+    * This class is used to access the database for the Professor class
+    * It contains methods to insert, delete, and update the Professor table
+    * It is a singleton class
+    * It extends the DB class
+    * It is used by the Professor class
+    * It is used in the ProfessorController class
+    * It is used in the ProfessorListController class
+    * It is used in the ProfessorSearchController class
+    * It is used in the ProfessorUpdateController class
+    * It is used in the ProfessorViewController class
+    * It is used in the ProfessorViewListController class
+    * It is used in the ProfessorViewSearchController class
+    * It is used in the ProfessorViewUpdateController class
+ */
 public class Professor_Database extends DB{
     private final Connection conn;
     private PreparedStatement pstmt;
@@ -22,7 +36,12 @@ public class Professor_Database extends DB{
     	conn = DB.conn;
     }
 
-
+    /**
+        * Inserts a professor into the professor table
+        * Inserts the professor's semesters, courses, programs, personal characteristics, and academic characteristics into their respective tables
+        * The professor's id is used as a reference in the other tables
+        * This class is used during the initial setup of the professor info, it isn't used if the professor is to stay the same
+     */
     public void insert(String name, String title, String school, String department,
                        String email, String phone, List<String> semesters,
                        List<String> courses, List<String> programs,
@@ -97,7 +116,10 @@ public class Professor_Database extends DB{
             System.out.println(e.getMessage());
         }
     }
-    //delete professor from database
+    /**
+        * Deletes a professor from the professor table
+     * @param id the id of the professor to be deleted
+     */
     public void deleteProf(int id) {
     	String sql = "DELETE FROM Professor WHERE id = ?";
     	try{
@@ -108,7 +130,10 @@ public class Professor_Database extends DB{
     		System.out.println(e.getMessage());
     	}
     }
-    //delete professor entries from specified tables
+    /**
+        * Deletes a professor's semesters from the semesters table
+     * @param id the id of the professor whose entries are to be deleted
+     */
     public void deleteEntry(String table, int id) {
     	String sql = "DELETE FROM " + table + " WHERE profID = ?";
     	try{
@@ -120,7 +145,11 @@ public class Professor_Database extends DB{
     	}
     }
 
-    //get professor data
+    /**
+     * Gets professor data and returns it into a list
+     * Used to populate the professor view
+     * @param id the id of the professor whose data is to be retrieved
+     */
     public List<String> getProfData(int id){
     	List<String> data = new ArrayList<>();
     	String sql = "SELECT * FROM Professor WHERE id = ?";
@@ -141,7 +170,10 @@ public class Professor_Database extends DB{
     	}
     	return data;
     }
-    
+    /**
+        * Gets the semesters, courses, programs, personal characteristics, and academic characteristics of a professor
+     * @param id the id of the professor whose data is to be retrieved
+     */
     public List<String> queryTableColumns(int id){
     	List<String> programs = new ArrayList<>();
     	String sql = null;
