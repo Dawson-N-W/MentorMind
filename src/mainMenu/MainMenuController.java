@@ -218,15 +218,15 @@ public class MainMenuController implements Initializable{
 		if(fName.getText().trim().isEmpty() || lName.getText().trim().isEmpty()) {
 			errorLabel.setText("First Name or Last Name has not been filled");
 		}
+		else if(genderCombo.getSelectionModel().isEmpty()) {
+			//have a label print something out to the screen
+			errorLabel.setText("Please select a gender");
+		}
 		else if(schoolName.getText().trim().isEmpty() || year.getText().trim().isEmpty()) {
 			errorLabel.setText("School Name or Year attended has been left blank");
 		}
 		else if(theDate == null){
 			errorLabel.setText("Please enter in a Date");
-		}
-		else if(genderCombo.getSelectionModel().isEmpty()) {
-			//have a label print something out to the screen
-			errorLabel.setText("Please select a gender");
 		}
 		else if(programs.getSelectionModel().isEmpty()) {
 			//have the label print something

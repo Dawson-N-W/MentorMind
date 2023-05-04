@@ -46,50 +46,80 @@ public class RecLetter {
         String pronoun;
 
         if(gender.equals("Male"))
-            	pronoun = "He";
+            pronoun = "He";
             else
-            	pronoun = "She";
+            pronoun = "She";
 
         sb.append("Letter of Recommendation\n\n");
-        sb.append(String.format("For: %s %s\n", firstName, lastName));
+        sb.append(String.format("For: %s %s\n\t\t\t\t\t\t\t\t\t\tDate: ", firstName, lastName));
         sb.append(dateString).append("\n\n");
-        sb.append("Dear Admissions Committee,\n\n");
+        sb.append("To: Graduate Admissions Committee\n\n");
         sb.append("I am writing to recommend my former student ");
-        sb.append(String.format("%s %s for admission to your to your %s program at your university. \n", firstName, lastName, program));
-        sb.append(String.format("I met %s in %s %s when they enrolled in my %s course. \n", firstName, semester, semYear, courseNames.get(0)));
-        sb.append(String.format("%s earned a %s from this tough course and shows how knowledgeable and harder worker they are. \n", firstName, grades.get(0)));
-        if(courseNames.size() > 1 && grades.size() > 1)
-            sb.append(String.format("%s also earned a %s from my %s course. \n", pronoun, grades.get(1), courseNames.get(1)));
+        sb.append(String.format("%s %s who is applying for the %s program in your school. \n\n", firstName, lastName, program));
+        sb.append(String.format("I met %s in %s %s when they enrolled in my \"%s\" course. \n\n", firstName, semester, semYear, courseNames.get(0)));
+        sb.append(String.format("%s earned %s from this tough course, and this shows how knowledgeable and hard worker %s is. \n\n", firstName, grades.get(0), pronoun.toLowerCase()));
+
+
+
+        //lists all classes and their associated grades.
+        for(int i = 0; i < courseNames.size(); i++)
+        {
+            if(i == 0);
+            else if(i == 1)
+                sb.append(String.format("%s also earned  \"%s\" from my \"%s\" course", pronoun, grades.get(i), courseNames.get(i)));
+            else if(i == courseNames.size() - 1)
+            {
+                if(courseNames.size() > 3)
+                    sb.append(String.format(","));
+                sb.append(String.format(" and \"%s\" from my \"%s\" course", grades.get(i), courseNames.get(i)));
+            }
+
+            else
+                sb.append(String.format(", \"%s\" from my \"%s\" course", grades.get(i), courseNames.get(i)));
+        }
+        sb.append(".\n\n");
+
+
         sb.append(String.format(firstName));
         for(int i = 0; i < academicChars.size(); i++){
-            if(i == academicChars.size() - 1)
-                sb.append(String.format(" and %s. \n", academicChars.get(i).toLowerCase()));
-            else if(i != 0)
-                sb.append(String.format(", %s", academicChars.get(i).toLowerCase()));
-            else
-                sb.append(String.format(" is %s", academicChars.get(i).toLowerCase()));
-        }
-
-        sb.append(String.format(pronoun)).append(" is ");
-        if(personalChars.size() == 2){
-            sb.append(String.format("%s and %s. \n", personalChars.get(0).toLowerCase(), personalChars.get(1).toLowerCase()));
-        }
-        else {
-            for (int i = 0; i < personalChars.size(); i++) {
-                if (i == personalChars.size() - 1)
-                    sb.append(String.format(" and %s. \n", personalChars.get(i).toLowerCase()));
-                else
-                    sb.append(String.format(", %s", personalChars.get(i).toLowerCase()));
+            if(i == 0)
+                sb.append(String.format(" %s", academicChars.get(i).toLowerCase()));
+            else if (i == academicChars.size() - 1)
+            {
+                if(academicChars.size() > 2)
+                    sb.append(String.format(","));
+                sb.append(String.format(" and %s", academicChars.get(i).toLowerCase()));
             }
+            else
+                sb.append(String.format(", %s", academicChars.get(i).toLowerCase()));
         }
+        sb.append(".\n\n");
+
+
+        sb.append(String.format(pronoun));
+        for(int i = 0; i < personalChars.size(); i++){
+            if(i == 0)
+                sb.append(String.format(" was always %s", personalChars.get(i).toLowerCase()));
+            else if (i == personalChars.size() - 1)
+            {
+                if(personalChars.size() > 2)
+                    sb.append(String.format(","));
+                sb.append(String.format(" and %s", personalChars.get(i).toLowerCase()));
+            }
+            else
+                sb.append(String.format(", %s", personalChars.get(i).toLowerCase()));
+        }
+        sb.append(".\n\n");
+
+
 
         sb.append(String.format("Furthermore, I noticed from the term project result, %s developed " +
                 "leadership, time management, and problem-solving skills. %s worked effectively with the team member and delegated tasks " +
-                "appropriately. They were able to deliver a successful project in a timely fashion. \n", pronoun.toLowerCase(), pronoun.substring(0, 1).toUpperCase() + pronoun.substring(1)));
+                "appropriately. They were able to deliver a successful project in a timely fashion. \n\n", pronoun.toLowerCase(), pronoun.substring(0, 1).toUpperCase() + pronoun.substring(1)));
 
         sb.append(String.format("I believe that %s has the capacity to excel at higher education program and this is my pleasure to highly recommend %s. \n", firstName, pronoun.toLowerCase().equals("he") ? "him" : "her"));
 
-        sb.append("Please do not hesitate to contact me with further questions. \n\n");
+        sb.append("Please do not hesitate to contact me with further questions. \n\n\n");
 
         sb.append("Very Respectfully,\n\n");
 
